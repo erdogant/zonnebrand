@@ -1219,9 +1219,9 @@ if __name__ == "__main__":
     RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 
     # Load library
-    from zonnebrand import zonnebrand
+    from zonnebrand import Zonnebrand
     # Initialize
-    client = zonnebrand(username=USERNAME,
+    client = Zonnebrand(username=USERNAME,
                         password=PASSWORD,
                         provider=provider,
                         showplot=args.plot,
