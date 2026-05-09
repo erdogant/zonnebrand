@@ -12,7 +12,7 @@
 
 <div>
 <a href="https://erdogant.github.io/zonnebrand/">
-  <img src="https://raw.githubusercontent.com/erdogant/zonnebrand/master/docs/figs/logo.png" alt="Zonnebrand Logo" width="250" align="left" />
+  <img src="https://raw.githubusercontent.com/erdogant/zonnebrand/master/docs/figs/logo.png" alt="Zonnebrand Logo" width="50" align="left" />
 </a>
 It detects negative-price windows and adjusts the two export-limit parameters in ennexOS: 0% during negative prices and 100% otherwise.
 ⭐️ Star this project if you like it ⭐️
