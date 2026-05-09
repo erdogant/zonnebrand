@@ -52,8 +52,10 @@ class Zonnebrand():
 
         Examples
         --------
-        >>> from zonnebrand import zonnebrand
-        >>> client = zonnebrand(provider='api')
+        >>> from zonnebrand import Zonnebrand
+        >>> client = Zonnebrand(provider='zonneplan')
+        >>> # Fetch data
+        >>> client.fetch_epex()
         >>> # Plot chart
         >>> client.plot_chart()
         >>> # Run
