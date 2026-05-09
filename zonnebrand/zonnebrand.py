@@ -1067,7 +1067,7 @@ async def _set_sma_parameters_async(value, SUNNY_URL, USERNAME, PASSWORD, browse
             logger.info("      Button text: %r", await login_btn.inner_text())
             await login_btn.click()
             await page.wait_for_load_state("networkidle")
-            logger.info("      URL after click: %s | title: %s", page.url, await page.title())
+            logger.debug("      URL after click: %s | title: %s", page.url, await page.title())
             if screenshot:
                 await _screenshot(page, "2_credentials_form", tempdir)
 
@@ -1085,7 +1085,7 @@ async def _set_sma_parameters_async(value, SUNNY_URL, USERNAME, PASSWORD, browse
             logger.info("      Submitting credentials \u2026")
             await page.click('button.btn-primary[name="login"]')
             await page.wait_for_load_state("networkidle")
-            logger.info("      Post-login URL: %s | title: %s", page.url, await page.title())
+            logger.debug("      Post-login URL: %s | title: %s", page.url, await page.title())
             if screenshot:
                 await _screenshot(page, "4_after_login", tempdir)
 

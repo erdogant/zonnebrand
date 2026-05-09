@@ -53,6 +53,7 @@
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#run-in-unix-terminal">Run in UNIX terminal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Examples.html#command-line-interface">Command-line interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Examples.html#python-api">Python API</a></li>
 </ul>
@@ -119,7 +120,7 @@
 <h1>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code> runs a continuous loop that:</p>
 <ol class="arabic simple">
-<li><p><strong>Fetches daily price data</strong> from <a class="reference external" href="https://stroomperuur.nl">stroomperuur.nl</a>
+<li><p><strong>Fetches daily price data</strong> from API for specific providers.
 once per day (96 quarter-hour slots or 24 hourly slots, depending on the provider).</p></li>
 <li><p><strong>Decides the export limit</strong> by checking whether the current time slot has a
 negative electricity price.  Negative-price windows shorter than 5 minutes are
@@ -209,7 +210,7 @@ Use <code class="docutils literal notranslate"><span class="pre">'tempdir'</span
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">api</span></code> <em>(default)</em></p></td>
-<td><p>Raw EPEX spot price via stroomperuur.nl — no supplier markup.</p></td>
+<td><p>EPEX spot price.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zonneplan</span></code></p></td>
 <td><p>Zonneplan dynamic tariff.</p></td>

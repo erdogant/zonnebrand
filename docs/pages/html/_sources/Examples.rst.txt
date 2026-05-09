@@ -6,6 +6,30 @@ All examples below assume that your ``.secrets/keys`` file contains valid
 values.  See :doc:`Installation` for credential setup.
 
 
+Run in UNIX terminal
+#######################
+
+When you start the app in a terminal and kill te screen, then the app will stop running.
+To keep the running while you close the terminal, you can use ``tmux``.
+
+.. code-block:: console
+
+    sudo apt install tmux
+    tmux new -s zonnebrand
+    
+    python zonnebrand.py --provider zonneplan --mail your_mail@gmail.com
+    
+    CTRL + B <release> then press D
+
+
+At a later moment you can reconnect to the terminal with:
+
+.. code-block:: console
+
+    tmux ls
+    tmux attach -t zonnebrand
+    
+
 Command-line interface
 ######################
 
@@ -276,7 +300,7 @@ a realistic negative-price window between 13:00 and 15:00.
     target_perc, reason = client.decide_target(data)
     print(target_perc, reason)
 
-Fetch prices via the stroomperuur.nl JSON API directly
+Fetch prices via the API (when provider not listed)
 *******************************************************
 
 .. code-block:: python

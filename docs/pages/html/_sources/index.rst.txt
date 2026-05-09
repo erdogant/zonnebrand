@@ -11,7 +11,7 @@ zonnebrand — Solar panel export-limit controller for SMA inverters
 
    **zonnebrand** is a Python tool that automatically protects your SMA solar inverter
    during negative electricity price windows. It monitors real-time EPEX spot prices
-   (via stroomperuur.nl or your energy provider) and adjusts the two export-limit
+   and adjusts the two export-limit
    parameters in ennexOS to **0 %** when prices go negative and restores them to
    **100 %** when prices recover — fully automated, every 15 minutes.
 

@@ -53,6 +53,7 @@
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#run-in-unix-terminal">Run in UNIX terminal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#command-line-interface">Command-line interface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#normal-price-based-control-loop">Normal price-based control loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#use-a-specific-energy-provider">Use a specific energy provider</a></li>
@@ -74,7 +75,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#run-with-e-mail-notifications">Run with e-mail notifications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-with-visible-browser-debug-mode">Run with visible browser (debug mode)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#use-built-in-example-data-no-internet-required">Use built-in example data (no internet required)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#fetch-prices-via-the-stroomperuur-nl-json-api-directly">Fetch prices via the stroomperuur.nl JSON API directly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetch-prices-via-the-api-when-provider-not-listed">Fetch prices via the API (when provider not listed)</a></li>
 </ul>
 </li>
 </ul>
@@ -121,6 +122,24 @@
 <p>All examples below assume that your <code class="docutils literal notranslate"><span class="pre">.secrets/keys</span></code> file contains valid
 <code class="docutils literal notranslate"><span class="pre">SUNNY_USERNAME</span></code>, <code class="docutils literal notranslate"><span class="pre">SUNNY_PASSWORD</span></code>, and (optionally) <code class="docutils literal notranslate"><span class="pre">RESEND_API_KEY</span></code>
 values.  See <a class="reference internal" href="Installation.html"><span class="doc">Installation</span></a> for credential setup.</p>
+</section>
+<section id="run-in-unix-terminal">
+<h1>Run in UNIX terminal<a class="headerlink" href="#run-in-unix-terminal" title="Link to this heading"></a></h1>
+<p>When you start the app in a terminal and kill te screen, then the app will stop running.
+To keep the running while you close the terminal, you can use <code class="docutils literal notranslate"><span class="pre">tmux</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install tmux</span>
+<span class="go">tmux new -s zonnebrand</span>
+
+<span class="go">python zonnebrand.py --provider zonneplan --mail your_mail@gmail.com</span>
+
+<span class="go">CTRL + B &lt;release&gt; then press D</span>
+</pre></div>
+</div>
+<p>At a later moment you can reconnect to the terminal with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tmux ls</span>
+<span class="go">tmux attach -t zonnebrand</span>
+</pre></div>
+</div>
 </section>
 <section id="command-line-interface">
 <h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h1>
@@ -359,8 +378,8 @@ a realistic negative-price window between 13:00 and 15:00.</p>
 </pre></div>
 </div>
 </section>
-<section id="fetch-prices-via-the-stroomperuur-nl-json-api-directly">
-<h2>Fetch prices via the stroomperuur.nl JSON API directly<a class="headerlink" href="#fetch-prices-via-the-stroomperuur-nl-json-api-directly" title="Link to this heading"></a></h2>
+<section id="fetch-prices-via-the-api-when-provider-not-listed">
+<h2>Fetch prices via the API (when provider not listed)<a class="headerlink" href="#fetch-prices-via-the-api-when-provider-not-listed" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_stroomperuur</span>
 
 <span class="c1"># Raw EPEX spot price (no provider markup)</span>

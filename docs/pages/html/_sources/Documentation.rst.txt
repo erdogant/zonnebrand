@@ -9,7 +9,7 @@ How it works
 
 ``zonnebrand`` runs a continuous loop that:
 
-1. **Fetches daily price data** from `stroomperuur.nl <https://stroomperuur.nl>`_
+1. **Fetches daily price data** from API for specific providers.
    once per day (96 quarter-hour slots or 24 hourly slots, depending on the provider).
 2. **Decides the export limit** by checking whether the current time slot has a
    negative electricity price.  Negative-price windows shorter than 5 minutes are
@@ -83,7 +83,7 @@ The following provider names can be passed to ``--provider`` (CLI) or the
    * - Name
      - Notes
    * - ``api`` *(default)*
-     - Raw EPEX spot price via stroomperuur.nl — no supplier markup.
+     - EPEX spot price.
    * - ``zonneplan``
      - Zonneplan dynamic tariff.
    * - ``tibber``
