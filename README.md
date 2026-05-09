@@ -11,14 +11,12 @@
 [![Donate](https://img.shields.io/badge/Support%20this%20project-grey.svg?logo=github%20sponsors)](https://erdogant.github.io/zonnebrand/pages/html/Documentation.html#)
 
 <div>
+<a href="https://erdogant.github.io/zonnebrand/"><img src="https://github.com/erdogant/zonnebrand/blob/master/docs/figs/logo.png" width="250" align="left" /></a>
 This library automatically regulates SMA solar inverters based on EPEX-spot electricity prices.
-
-It detects negative-price windows and adjusts the two export-limit parameters in ennexOS:
-- 0% during negative prices
-- 100% otherwise
-
+It detects negative-price windows and adjusts the two export-limit parameters in ennexOS: 0% during negative prices and 100% otherwise.
 ⭐️ Star this project if you like it ⭐️
 </div>
+
 
 ---
 
