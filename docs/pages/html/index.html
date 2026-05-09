@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>zonnebrand — Solar panel export-limit controller for SMA inverters &mdash; zonnebrand zonnebrand documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=704999e9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            zonnebrand
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#command-line-interface">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#python-api">Python API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#how-it-works">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#supported-energy-providers">Supported energy providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#log-files">Log files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zonnebrand.zonnebrand.html">API References</a></li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">zonnebrand</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">zonnebrand — Solar panel export-limit controller for SMA inverters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="zonnebrand-solar-panel-export-limit-controller-for-sma-inverters">
+<h1>zonnebrand — Solar panel export-limit controller for SMA inverters<a class="headerlink" href="#zonnebrand-solar-panel-export-limit-controller-for-sma-inverters" title="Link to this heading"></a></h1>
+<div class="logo-description docutils container">
+<a class="reference internal image-reference" href="_images/logo.png"><img alt="zonnebrand logo" class="align-left" src="_images/logo.png" style="width: 125px; height: 125px;" />
+</a>
+<p><strong>zonnebrand</strong> is a Python tool that automatically protects your SMA solar inverter
+during negative electricity price windows. It monitors real-time EPEX spot prices
+(via stroomperuur.nl or your energy provider) and adjusts the two export-limit
+parameters in ennexOS to <strong>0 %</strong> when prices go negative and restores them to
+<strong>100 %</strong> when prices recover — fully automated, every 15 minutes.</p>
+<div style="clear: both;"></div></div>
+<hr class="docutils" />
+<p><a class="reference external" href="https://erdogant.github.io/zonnebrand/"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/zonnebrand.svg" /></a> <a class="reference external" href="https://pypi.org/project/zonnebrand/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/zonnebrand.svg" /></a> <a class="reference external" href="https://erdogant.github.io/zonnebrand/"><img alt="Sphinx documentation" src="https://img.shields.io/badge/Sphinx-Docs-Green.svg" /></a> <a class="reference external" href="https://github.com/erdogant/zonnebrand"><img alt="Lines of code" src="https://sloc.xyz/github/erdogant/zonnebrand/?category=code" /></a> <a class="reference external" href="https://pepy.tech/project/zonnebrand"><img alt="Downloads per month" src="https://static.pepy.tech/personalized-badge/zonnebrand?period=month&amp;units=international_system&amp;left_color=grey&amp;right_color=brightgreen&amp;left_text=PyPI%20downloads/month" /></a> <a class="reference external" href="https://pepy.tech/project/zonnebrand"><img alt="Downloads in total" src="https://static.pepy.tech/personalized-badge/zonnebrand?period=total&amp;units=international_system&amp;left_color=grey&amp;right_color=brightgreen&amp;left_text=Downloads" /></a> <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a> <a class="reference external" href="https://github.com/erdogant/zonnebrand/network"><img alt="Github Forks" src="https://img.shields.io/github/forks/erdogant/zonnebrand.svg" /></a> <a class="reference external" href="https://github.com/erdogant/zonnebrand/issues"><img alt="Open Issues" src="https://img.shields.io/github/issues/erdogant/zonnebrand.svg" /></a> <a class="reference external" href="http://www.repostatus.org/#active"><img alt="Project Status" src="http://www.repostatus.org/badges/latest/active.svg" /></a> <a class="reference external" href="https://erdogant.github.io/zonnebrand/pages/html/Documentation.html#"><img alt="Donate" src="https://img.shields.io/badge/Support%20this%20project-grey.svg?logo=github%20sponsors" /></a></p>
+<hr class="docutils" />
+<section id="support">
+<h2>Support<a class="headerlink" href="#support" title="Link to this heading"></a></h2>
+<div style="display: flex; align-items: center; gap: 20px;">
+    <iframe
+        srcdoc='<a href="https://www.buymeacoffee.com/erdogant" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&amp;emoji=&amp;slug=erdogant&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" /></a>'
+        style="border:none; width:250px; height:80px; flex-shrink: 0;">
+    </iframe>
+    <div>
+        <p><strong>Yes! This library is entirely free but it runs on coffee.</strong>
+        Your ❤️ is important to keep maintaining this package. You can
+        <a href="https://erdogant.github.io/zonnebrand/pages/html/Documentation.html">support</a>
+        in various ways — have a look at the
+        <a href="https://erdogant.github.io/zonnebrand/pages/html/Documentation.html">sponsor page</a>.</p>
+    </div>
+</div></section>
+<hr class="docutils" />
+<section id="quick-install">
+<h2>Quick install<a class="headerlink" href="#quick-install" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install zonnebrand</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#credentials">Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#install-from-pypi">Install from PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#install-from-github">Install from GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#create-a-conda-environment">Create a Conda environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#create-a-venv-environment">Create a venv environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#build-and-start-first-time">Build and start (first time)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#start-an-existing-container">Start an existing container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#inspect-running-containers">Inspect running containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#view-live-logs">View live logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#clean-up-unused-resources">Clean up unused resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#remove-the-package">Remove the package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#remove-a-conda-environment">Remove a Conda environment</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#command-line-interface">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#python-api">Python API</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#how-it-works">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#supported-energy-providers">Supported energy providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#log-files">Log files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zonnebrand.zonnebrand.html">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand-controller">zonnebrand Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.Zonnebrand"><code class="docutils literal notranslate"><span class="pre">Zonnebrand</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.append_SMA_data"><code class="docutils literal notranslate"><span class="pre">append_SMA_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.append_epex_prices"><code class="docutils literal notranslate"><span class="pre">append_epex_prices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.fetch_stroomperuur"><code class="docutils literal notranslate"><span class="pre">fetch_stroomperuur()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.get_current_negative_window"><code class="docutils literal notranslate"><span class="pre">get_current_negative_window()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.get_date_time"><code class="docutils literal notranslate"><span class="pre">get_date_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.get_provider_option"><code class="docutils literal notranslate"><span class="pre">get_provider_option()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.load_epex_data"><code class="docutils literal notranslate"><span class="pre">load_epex_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonnebrand.zonnebrand.html#zonnebrand.zonnebrand.parse_prices"><code class="docutils literal notranslate"><span class="pre">parse_prices()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<hr>
+<center>
+        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+        <!-- Show an image ad -->
+        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
+        <div data-ea-publisher="erdogantgithubio" data-ea-type="image" data-ea-style="stickybox"></div>
+</center>
+<hr></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

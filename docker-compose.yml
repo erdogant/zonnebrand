@@ -1,0 +1,13 @@
+services:
+  zonnebrand:
+    build: .
+    container_name: zonnebrand
+    restart: unless-stopped
+
+    env_file:
+      - .secrets/keys
+
+    volumes:
+      - ./data:/app/data
+
+    command: python zonnebrand/zonnebrand.py --provider zonneplan

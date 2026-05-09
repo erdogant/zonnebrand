@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation &mdash; zonnebrand zonnebrand documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=704999e9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API References" href="zonnebrand.zonnebrand.html" />
+    <link rel="prev" title="Examples" href="Examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            zonnebrand
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#command-line-interface">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#python-api">Python API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#supported-energy-providers">Supported energy providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#log-files">Log files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#github">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#citing">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zonnebrand.zonnebrand.html">API References</a></li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">zonnebrand</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Documentation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can support this project in various ways ❤️</p>
+<ul class="simple">
+<li><p><strong>Star</strong> this repo at the github page.</p></li>
+<li><p>Become a <a class="reference external" href="https://github.com/sponsors/erdogant?o=esb/">Sponsor</a>!</p></li>
+<li><p><a class="reference external" href="https://www.buymeacoffee.com/erdogant">Buy</a> me a coffee! I ❤️ coffee :)</p></li>
+<li><p>Medium: <a class="reference external" href="https://erdogant.medium.com/">medium profile</a> and press <em>follow</em>.</p></li>
+<li><p>Substack: <a class="reference external" href="https://erdogant.substack.com/">profile</a> where you can <em>subscribe</em>.</p></li>
+<li><p>Gumroad: <a class="reference external" href="https://erdogant.gumroad.com/">profile</a>. where you can <em>buy</em>.</p></li>
+<li><p>You can also buy a digital educational product over <a class="reference external" href="https://erdogant.gumroad.com/">here</a>.</p></li>
+<li><p>Contribute in the form of feature requests, idea discussions, reporting bugs, opening pull requests.</p></li>
+</ul>
+<p>Cheers Mate.</p>
+</div>
+<iframe
+    srcdoc='<a href="https://www.buymeacoffee.com/erdogant" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&amp;emoji=&amp;slug=erdogant&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" /></a>'
+    style="border:none; width:250px; height:80px;">
+</iframe></section>
+<section id="how-it-works">
+<h1>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code> runs a continuous loop that:</p>
+<ol class="arabic simple">
+<li><p><strong>Fetches daily price data</strong> from <a class="reference external" href="https://stroomperuur.nl">stroomperuur.nl</a>
+once per day (96 quarter-hour slots or 24 hourly slots, depending on the provider).</p></li>
+<li><p><strong>Decides the export limit</strong> by checking whether the current time slot has a
+negative electricity price.  Negative-price windows shorter than 5 minutes are
+ignored to avoid unnecessary toggling.</p></li>
+<li><p><strong>Logs in to ennexOS</strong> (SMA Sunny Portal) via a headless Chromium browser
+(Playwright) and sets both export-limit parameters
+(<code class="docutils literal notranslate"><span class="pre">Parameter.PCC.FlbInv.WMaxNom</span></code> and <code class="docutils literal notranslate"><span class="pre">Parameter.PCC.WMaxNom</span></code>) to
+<strong>0 %</strong> during negative prices and <strong>100 %</strong> otherwise.</p></li>
+<li><p><strong>Sends a status e-mail</strong> (via the Resend API) whenever the export limit changes.</p></li>
+<li><p><strong>Sleeps for 15 minutes</strong> and repeats.</p></li>
+</ol>
+<p>All decisions and state changes are appended to <code class="docutils literal notranslate"><span class="pre">data/zonnebrand.csv</span></code>; price
+data is stored in <code class="docutils literal notranslate"><span class="pre">data/epex.csv</span></code>.</p>
+</section>
+<section id="configuration-reference">
+<h1>Configuration reference<a class="headerlink" href="#configuration-reference" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Zonnebrand</span></code> class accepts the following parameters:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">username</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>ennexOS account e-mail address (<code class="docutils literal notranslate"><span class="pre">SUNNY_USERNAME</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>ennexOS account password (<code class="docutils literal notranslate"><span class="pre">SUNNY_PASSWORD</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">provider</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'api'</span></code></p></td>
+<td><p>Price source: <code class="docutils literal notranslate"><span class="pre">'api'</span></code> for raw EPEX spot prices, or any supported
+energy-supplier name (e.g. <code class="docutils literal notranslate"><span class="pre">'zonneplan'</span></code>, <code class="docutils literal notranslate"><span class="pre">'tibber'</span></code>, <code class="docutils literal notranslate"><span class="pre">'anwb'</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">showplot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Open an interactive Plotly price chart in the browser after each
+daily price fetch.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">browser</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Run Chromium in <strong>visible</strong> mode (<code class="docutils literal notranslate"><span class="pre">False</span></code> = headless).
+Useful for debugging ennexOS login issues.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">screenshot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Save PNG screenshots at every Playwright step to the log directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logdir</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'./data/'</span></code></p></td>
+<td><p>Directory for <code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">epex.csv</span></code> log files.
+Use <code class="docutils literal notranslate"><span class="pre">'tempdir'</span></code> for the OS temp directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resend_api_key</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>API key for the <a class="reference external" href="https://resend.com">Resend</a> e-mail service.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">to_mail</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Recipient e-mail address for status-change notifications.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="supported-energy-providers">
+<h1>Supported energy providers<a class="headerlink" href="#supported-energy-providers" title="Link to this heading"></a></h1>
+<p>The following provider names can be passed to <code class="docutils literal notranslate"><span class="pre">--provider</span></code> (CLI) or the
+<code class="docutils literal notranslate"><span class="pre">provider</span></code> argument (Python API):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">api</span></code> <em>(default)</em></p></td>
+<td><p>Raw EPEX spot price via stroomperuur.nl — no supplier markup.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zonneplan</span></code></p></td>
+<td><p>Zonneplan dynamic tariff.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tibber</span></code></p></td>
+<td><p>Tibber dynamic tariff.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anwb</span></code></p></td>
+<td><p>ANWB Energie dynamic tariff.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">easyenergy</span></code></p></td>
+<td><p>EasyEnergy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vandebron</span></code></p></td>
+<td><p>Vandebron.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">energyzero</span></code></p></td>
+<td><p>EnergyZero.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">frank</span></code></p></td>
+<td><p>Frank Energie.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vattenfall</span></code></p></td>
+<td><p>Vattenfall.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">essent</span></code></p></td>
+<td><p>Essent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">eneco</span></code></p></td>
+<td><p>Eneco.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">coolblue</span></code></p></td>
+<td><p>Coolblue Energie.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nextenergy</span></code></p></td>
+<td><p>NextEnergy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">budget</span></code></p></td>
+<td><p>Budget Energie.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">groenelokaal</span></code></p></td>
+<td><p>Groene Lokaal.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">delta</span></code></p></td>
+<td><p>Delta.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vrijopnaam</span></code></p></td>
+<td><p>Vrij op Naam.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">energiedirect</span></code></p></td>
+<td><p>EnergieDirect.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">energiek</span></code></p></td>
+<td><p>Energiek.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engie</span></code></p></td>
+<td><p>Engie.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">powerpeers</span></code></p></td>
+<td><p>PowerPeers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">oxxio</span></code></p></td>
+<td><p>Oxxio.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vanons</span></code></p></td>
+<td><p>Van Ons.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">all_in_power</span></code></p></td>
+<td><p>All in Power.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="log-files">
+<h1>Log files<a class="headerlink" href="#log-files" title="Link to this heading"></a></h1>
+<p>Two CSV files are written to <code class="docutils literal notranslate"><span class="pre">logdir</span></code> (default <code class="docutils literal notranslate"><span class="pre">./data/</span></code>):</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code></dt><dd><p>One row per control decision with columns <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>,
+<code class="docutils literal notranslate"><span class="pre">target_percent</span></code>, and <code class="docutils literal notranslate"><span class="pre">reason</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">epex.csv</span></code></dt><dd><p>One row per quarter-hour price slot with columns <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>,
+<code class="docutils literal notranslate"><span class="pre">price</span></code>, and <code class="docutils literal notranslate"><span class="pre">provider</span></code>.  Historical data accumulates across days
+(duplicates are de-duplicated on load).</p>
+</dd>
+</dl>
+</section>
+<section id="github">
+<h1>GitHub<a class="headerlink" href="#github" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://github.com/erdogant/zonnebrand/">Source code of zonnebrand can be found on GitHub</a></p>
+</div>
+</section>
+<section id="citing">
+<h1>Citing<a class="headerlink" href="#citing" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A BibTeX citation can be found on the right-hand side of the
+<a class="reference external" href="https://github.com/erdogant/zonnebrand/">GitHub page</a>.</p>
+</div>
+<hr>
+<center>
+        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+        <!-- Show an image ad -->
+        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
+        <div data-ea-publisher="erdogantgithubio" data-ea-type="image" data-ea-style="stickybox"></div>
+</center>
+<hr></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="zonnebrand.zonnebrand.html" class="btn btn-neutral float-right" title="API References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API References &mdash; zonnebrand zonnebrand documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=704999e9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Documentation" href="Documentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            zonnebrand
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#command-line-interface">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#python-api">Python API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#how-it-works">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#supported-energy-providers">Supported energy providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#log-files">Log files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand-controller">zonnebrand Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand"><code class="docutils literal notranslate"><span class="pre">Zonnebrand</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.create_html_status"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.create_html_status()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.decide_target"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.decide_target()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.example_data"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.example_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.fetch_dutch_energy_prices"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.fetch_dutch_energy_prices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.fetch_epex"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.fetch_epex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.plot_chart"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.plot_chart()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.run"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.run()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.set_logfile"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.set_logfile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.set_sma_parameters"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.set_sma_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.append_SMA_data"><code class="docutils literal notranslate"><span class="pre">append_SMA_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.append_epex_prices"><code class="docutils literal notranslate"><span class="pre">append_epex_prices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.fetch_stroomperuur"><code class="docutils literal notranslate"><span class="pre">fetch_stroomperuur()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.get_current_negative_window"><code class="docutils literal notranslate"><span class="pre">get_current_negative_window()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.get_date_time"><code class="docutils literal notranslate"><span class="pre">get_date_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.get_provider_option"><code class="docutils literal notranslate"><span class="pre">get_provider_option()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.load_epex_data"><code class="docutils literal notranslate"><span class="pre">load_epex_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.parse_prices"><code class="docutils literal notranslate"><span class="pre">parse_prices()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">zonnebrand</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API References</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/zonnebrand.zonnebrand.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-zonnebrand.zonnebrand">
+<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-zonnebrand.zonnebrand" title="Link to this heading"></a></h1>
+<section id="zonnebrand-controller">
+<h2>zonnebrand Controller<a class="headerlink" href="#zonnebrand-controller" title="Link to this heading"></a></h2>
+<p>Name        : zonnebrand.py
+Author      : E.Taskesen
+github      : <a class="reference external" href="https://github.com/erdogant/zonnebrand">https://github.com/erdogant/zonnebrand</a>
+Licence     : GNU GENERAL PUBLIC LICENSE VERSION 3</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">Zonnebrand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'api'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showplot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./data/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resend_api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_mail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screenshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand" title="Link to this definition"></a></dt>
+<dd><p>zonnebrand.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.create_html_status">
+<span class="sig-name descname"><span class="pre">create_html_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_perc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.create_html_status" title="Link to this definition"></a></dt>
+<dd><p>Send automated status update mail.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_perc</strong> (<em>int</em>) – Target percentage (0 or 100)</p></li>
+<li><p><strong>reason</strong> (<em>str</em>) – Decision reason returned by decide_target()</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.decide_target">
+<span class="sig-name descname"><span class="pre">decide_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.decide_target" title="Link to this definition"></a></dt>
+<dd><p>Return (target_percent, reason). target_percent is 0 or 100.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.example_data">
+<span class="sig-name descname"><span class="pre">example_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.example_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.fetch_dutch_energy_prices">
+<span class="sig-name descname"><span class="pre">fetch_dutch_energy_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.fetch_dutch_energy_prices" title="Link to this definition"></a></dt>
+<dd><p>Get all 15-minute electricity price data from stroomperuur.nl.
+Returns a list of dicts with timestamp and €/MWh price.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.fetch_epex">
+<span class="sig-name descname"><span class="pre">fetch_epex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.fetch_epex" title="Link to this definition"></a></dt>
+<dd><p>Return the raw data as a dict.</p>
+<p>date: ‘2026-05-09’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.plot_chart">
+<span class="sig-name descname"><span class="pre">plot_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieve_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.plot_chart" title="Link to this definition"></a></dt>
+<dd><p>Plot EPEX data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>retrieve_data</strong> (<em>str</em>) – ‘current’ : Get current data
+‘load’    : Load from saved file</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.run" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.set_logfile">
+<span class="sig-name descname"><span class="pre">set_logfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.set_logfile" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.set_sma_parameters">
+<span class="sig-name descname"><span class="pre">set_sma_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand.set_sma_parameters" title="Link to this definition"></a></dt>
+<dd><p>Thread-safe wrapper around the async Playwright logic.</p>
+<p>Playwright’s sync API crashes when an asyncio event loop is already
+running (e.g. Jupyter, Spyder, IPython).  This wrapper always runs the
+async coroutine in a <em>fresh</em> event loop on a dedicated background thread,
+so it works correctly in every environment.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.append_SMA_data">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">append_SMA_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_perc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.append_SMA_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.append_epex_prices">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">append_epex_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.append_epex_prices" title="Link to this definition"></a></dt>
+<dd><p>Append 15‑minute price data to CSV.
+Creates directory + file + header if missing.
+Each row: YYYY‑MM‑DD, HH:MM, price</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.fetch_stroomperuur">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">fetch_stroomperuur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'api'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.fetch_stroomperuur" title="Link to this definition"></a></dt>
+<dd><p>Fetch 15-minute electricity price data directly from the stroomperuur.nl JSON API.</p>
+<p>This calls <code class="docutils literal notranslate"><span class="pre">/ajax/tarieven.php</span></code> — the same endpoint the website’s own
+chart uses — so no browser automation is needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>provider</strong> (<em>str</em>) – Energy provider name (e.g. <code class="docutils literal notranslate"><span class="pre">'zonneplan'</span></code>, <code class="docutils literal notranslate"><span class="pre">'anwb'</span></code>, <code class="docutils literal notranslate"><span class="pre">'tibber'</span></code>).
+Use <code class="docutils literal notranslate"><span class="pre">'api'</span></code> to get the generic EPEX spot price without a provider markup.</p></li>
+<li><p><strong>date</strong> (<em>str</em><em>, </em><em>optional</em>) – Date in <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> format.  Defaults to today.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Each entry has <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code> (<code class="docutils literal notranslate"><span class="pre">HH:MM</span></code>), and <code class="docutils literal notranslate"><span class="pre">price</span></code> (€/kWh,
+inkoop + energiebelasting en BTW).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[dict]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>Response layout (list index → meaning):</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data[0]</span></code>  – inkoopprijs per kWh per 15-min slot  (list of floats)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data[1]</span></code>  – energiebelasting en BTW per slot       (list of floats)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data[2]</span></code>  – gemiddelde totaalprijs                 (single float)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data[3]</span></code>  – vaste inkoopvergoeding                 (single float)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="n">fetch_stroomperuur</span><span class="p">(</span><span class="s1">&#39;zonneplan&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">{&#39;date&#39;: &#39;2025-05-09&#39;, &#39;time&#39;: &#39;0:00&#39;, &#39;price&#39;: 0.27345}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.get_current_negative_window">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">get_current_negative_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slots</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.get_current_negative_window" title="Link to this definition"></a></dt>
+<dd><p>Find the contiguous block of negative-price slots that covers <em>now</em>.
+Returns (window_start, window_end) or (None, None).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.get_date_time">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">get_date_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'today'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UTC</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.get_date_time" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.get_provider_option">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">get_provider_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#zonnebrand.zonnebrand.get_provider_option" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.load_epex_data">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">load_epex_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datafile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.load_epex_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.parse_prices">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">parse_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.parse_prices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<hr>
+<center>
+        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+        <!-- Show an image ad -->
+        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
+        <div data-ea-publisher="erdogantgithubio" data-ea-type="image" data-ea-style="stickybox"></div>
+</center>
+<hr></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Documentation.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zonnebrand"
+dynamic = ["version"]
+authors = [{ name = "Erdogan Taskesen", email = "erdogant@gmail.com" },]
+description = "Automatic regulation of the solar panel activation based on EPEX prices."
+readme = "README.md"
+requires-python = ">=3"
+license = "MIT"
+keywords = ["Python", "zonnebrand", "solar panels"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "Operating System :: Unix",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'numpy',
+    'requests',
+    'python-dotenv',
+    'plotly',
+    'playwright',
+]
+
+[project.urls]
+Homepage = "https://erdogant.github.io/zonnebrand"
+Download = "https://github.com/erdogant/zonnebrand/archive/{version}.tar.gz"
+
+# Add the entire directory with subdirs into the package
+[tool.setuptools.packages.find]
+include = ["zonnebrand*"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "zonnebrand.__version__" }
+

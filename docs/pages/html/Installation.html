@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; zonnebrand zonnebrand documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=704999e9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="Examples.html" />
+    <link rel="prev" title="zonnebrand — Solar panel export-limit controller for SMA inverters" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            zonnebrand
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#credentials">Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-pypi">Install from PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-github">Install from GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-conda-environment">Create a Conda environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-venv-environment">Create a venv environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#docker">Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build-and-start-first-time">Build and start (first time)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-an-existing-container">Start an existing container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect-running-containers">Inspect running containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#view-live-logs">View live logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clean-up-unused-resources">Clean up unused resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#uninstalling">Uninstalling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#remove-the-package">Remove the package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#remove-a-conda-environment">Remove a Conda environment</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#command-line-interface">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#python-api">Python API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#how-it-works">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#supported-energy-providers">Supported energy providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#log-files">Log files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zonnebrand.zonnebrand.html">API References</a></li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">zonnebrand</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code> requires <strong>Python 3.10 or higher</strong> and uses
+<a class="reference external" href="https://playwright.dev/python/">Playwright</a> for browser automation to control
+the SMA ennexOS portal.</p>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p>The following packages are installed automatically via <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">playwright</span></code> — browser automation for ennexOS login and parameter setting</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plotly</span></code> — interactive price charts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requests</span></code> — price-data API calls</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code> — credential loading from <code class="docutils literal notranslate"><span class="pre">.secrets</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resend</span></code> <em>(optional)</em> — e-mail status notifications</p></li>
+</ul>
+<p>After installing the package, you must also install the Playwright browser binaries once:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">playwright install chromium</span>
+</pre></div>
+</div>
+</section>
+<section id="credentials">
+<h2>Credentials<a class="headerlink" href="#credentials" title="Link to this heading"></a></h2>
+<p>Create a file called <code class="docutils literal notranslate"><span class="pre">.secrets/keys</span></code> (or <code class="docutils literal notranslate"><span class="pre">.secrets</span></code>) in your project root
+with your SMA ennexOS credentials and — optionally — a Resend API key for
+e-mail notifications:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">SUNNY_USERNAME</span><span class="o">=</span><span class="s">your_ennexos_email@example.com</span>
+<span class="na">SUNNY_PASSWORD</span><span class="o">=</span><span class="s">your_ennexos_password</span>
+<span class="na">RESEND_API_KEY</span><span class="o">=</span><span class="s">re_xxxxxxxxxxxxxxxxxxxx</span><span class="w">   </span><span class="c1"># optional</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="install-from-pypi">
+<h2>Install from PyPI<a class="headerlink" href="#install-from-pypi" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Install<span class="w"> </span>from<span class="w"> </span>PyPI:
+<span class="go">pip install zonnebrand</span>
+
+<span class="gp"># </span>Force<span class="w"> </span>update<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>version:
+<span class="go">pip install -U zonnebrand</span>
+
+<span class="gp"># </span>Install<span class="w"> </span>Playwright<span class="w"> </span>browser<span class="w"> </span>binaries<span class="w"> </span><span class="o">(</span>required<span class="w"> </span>once<span class="o">)</span>:
+<span class="go">playwright install chromium</span>
+</pre></div>
+</div>
+</section>
+<section id="install-from-github">
+<h2>Install from GitHub<a class="headerlink" href="#install-from-github" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Install<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>development<span class="w"> </span>version<span class="w"> </span>directly<span class="w"> </span>from<span class="w"> </span>GitHub:
+<span class="go">pip install git+https://github.com/erdogant/zonnebrand</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-conda-environment">
+<h2>Create a Conda environment<a class="headerlink" href="#create-a-conda-environment" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n env_zonnebrand python=3.11</span>
+<span class="go">conda activate env_zonnebrand</span>
+<span class="go">pip install zonnebrand</span>
+<span class="go">playwright install chromium</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-venv-environment">
+<h2>Create a venv environment<a class="headerlink" href="#create-a-venv-environment" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Create<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>project<span class="w"> </span>directory
+<span class="go">mkdir my_zonnebrand_project</span>
+<span class="go">cd my_zonnebrand_project</span>
+
+<span class="gp"># </span>Create<span class="w"> </span>virtual<span class="w"> </span>environment
+<span class="go">python -m venv venv</span>
+
+<span class="gp"># </span>Activate<span class="w"> </span><span class="o">(</span>macOS<span class="w"> </span>/<span class="w"> </span>Linux<span class="o">)</span>:
+<span class="go">source venv/bin/activate</span>
+
+<span class="gp"># </span>Activate<span class="w"> </span><span class="o">(</span>Windows<span class="o">)</span>:
+<span class="go">venv\Scripts\activate</span>
+
+<span class="gp"># </span>Install
+<span class="go">pip install zonnebrand</span>
+<span class="go">playwright install chromium</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="docker">
+<h1>Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h1>
+<p>A <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> is included in the repository so you can run
+zonnebrand as a persistent background service without touching your local
+Python environment.</p>
+<section id="build-and-start-first-time">
+<h2>Build and start (first time)<a class="headerlink" href="#build-and-start-first-time" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker compose up -d --build</span>
+</pre></div>
+</div>
+</section>
+<section id="start-an-existing-container">
+<h2>Start an existing container<a class="headerlink" href="#start-an-existing-container" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker compose up -d</span>
+</pre></div>
+</div>
+</section>
+<section id="inspect-running-containers">
+<h2>Inspect running containers<a class="headerlink" href="#inspect-running-containers" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker ps</span>
+<span class="go">docker image ls</span>
+</pre></div>
+</div>
+</section>
+<section id="view-live-logs">
+<h2>View live logs<a class="headerlink" href="#view-live-logs" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker compose logs -f</span>
+</pre></div>
+</div>
+</section>
+<section id="clean-up-unused-resources">
+<h2>Clean up unused resources<a class="headerlink" href="#clean-up-unused-resources" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker system prune</span>
+<span class="go">docker builder prune</span>
+<span class="go">docker rm -f &lt;container_id&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="uninstalling">
+<h1>Uninstalling<a class="headerlink" href="#uninstalling" title="Link to this heading"></a></h1>
+<section id="remove-the-package">
+<h2>Remove the package<a class="headerlink" href="#remove-the-package" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip uninstall zonnebrand</span>
+</pre></div>
+</div>
+</section>
+<section id="remove-a-conda-environment">
+<h2>Remove a Conda environment<a class="headerlink" href="#remove-a-conda-environment" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>List<span class="w"> </span>active<span class="w"> </span>environments<span class="w"> </span><span class="o">(</span>zonnebrand<span class="w"> </span>should<span class="w"> </span>appear<span class="o">)</span>:
+<span class="go">conda env list</span>
+
+<span class="gp"># </span>Remove<span class="w"> </span>the<span class="w"> </span>environment:
+<span class="go">conda env remove --name env_zonnebrand</span>
+
+<span class="gp"># </span>Verify<span class="w"> </span>removal:
+<span class="go">conda env list</span>
+</pre></div>
+</div>
+<hr>
+<center>
+        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+        <!-- Show an image ad -->
+        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
+        <div data-ea-publisher="erdogantgithubio" data-ea-type="image" data-ea-style="stickybox"></div>
+</center>
+<hr></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="zonnebrand — Solar panel export-limit controller for SMA inverters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

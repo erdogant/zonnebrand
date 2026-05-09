@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.log
+.env
+.secrets/
+data/
+.git
+.gitignore
+.github
+docs
+info
+zonnebrand.egg-info

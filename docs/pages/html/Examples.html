@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; zonnebrand zonnebrand documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=704999e9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation" href="Documentation.html" />
+    <link rel="prev" title="Installation" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            zonnebrand
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#command-line-interface">Command-line interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#normal-price-based-control-loop">Normal price-based control loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-a-specific-energy-provider">Use a specific energy provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetch-and-print-today-s-price-data">Fetch and print today’s price data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-the-price-chart">Plot the price chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#force-a-specific-export-limit">Force a specific export limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#send-status-e-mails-resend">Send status e-mails (Resend)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debug-with-a-visible-browser-window">Debug with a visible browser window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combine-multiple-options">Combine multiple options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#python-api">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Use a specific energy provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetch-and-inspect-price-data">Fetch and inspect price data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-current-price-decision">Check current price decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Plot the price chart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#force-set-the-export-limit">Force-set the export limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-with-e-mail-notifications">Run with e-mail notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-with-visible-browser-debug-mode">Run with visible browser (debug mode)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-built-in-example-data-no-internet-required">Use built-in example data (no internet required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetch-prices-via-the-stroomperuur-nl-json-api-directly">Fetch prices via the stroomperuur.nl JSON API directly</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#how-it-works">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#configuration-reference">Configuration reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#supported-energy-providers">Supported energy providers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#log-files">Log files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zonnebrand.zonnebrand.html">API References</a></li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">zonnebrand</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<p>All examples below assume that your <code class="docutils literal notranslate"><span class="pre">.secrets/keys</span></code> file contains valid
+<code class="docutils literal notranslate"><span class="pre">SUNNY_USERNAME</span></code>, <code class="docutils literal notranslate"><span class="pre">SUNNY_PASSWORD</span></code>, and (optionally) <code class="docutils literal notranslate"><span class="pre">RESEND_API_KEY</span></code>
+values.  See <a class="reference internal" href="Installation.html"><span class="doc">Installation</span></a> for credential setup.</p>
+</section>
+<section id="command-line-interface">
+<h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">zonnebrand.py</span></code> exposes a rich CLI.  Run <code class="docutils literal notranslate"><span class="pre">--help</span></code> to see all options:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --help</span>
+</pre></div>
+</div>
+<section id="normal-price-based-control-loop">
+<h2>Normal price-based control loop<a class="headerlink" href="#normal-price-based-control-loop" title="Link to this heading"></a></h2>
+<p>Runs the continuous control loop.  Prices are refreshed once per day; the
+export limit is re-evaluated every 15 minutes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py</span>
+</pre></div>
+</div>
+</section>
+<section id="use-a-specific-energy-provider">
+<h2>Use a specific energy provider<a class="headerlink" href="#use-a-specific-energy-provider" title="Link to this heading"></a></h2>
+<p>By default the raw EPEX spot price is used.  Pass <code class="docutils literal notranslate"><span class="pre">--provider</span></code> to include
+the markup of your own energy supplier (e.g. Zonneplan, ANWB, Tibber):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --provider zonneplan</span>
+<span class="go">python zonnebrand.py --provider tibber</span>
+<span class="go">python zonnebrand.py --provider anwb</span>
+</pre></div>
+</div>
+<p>Supported provider names: <code class="docutils literal notranslate"><span class="pre">all_in_power</span></code>, <code class="docutils literal notranslate"><span class="pre">anwb</span></code>, <code class="docutils literal notranslate"><span class="pre">budget</span></code>,
+<code class="docutils literal notranslate"><span class="pre">coolblue</span></code>, <code class="docutils literal notranslate"><span class="pre">delta</span></code>, <code class="docutils literal notranslate"><span class="pre">easyenergy</span></code>, <code class="docutils literal notranslate"><span class="pre">eneco</span></code>, <code class="docutils literal notranslate"><span class="pre">vanons</span></code>,
+<code class="docutils literal notranslate"><span class="pre">energiedirect</span></code>, <code class="docutils literal notranslate"><span class="pre">energiek</span></code>, <code class="docutils literal notranslate"><span class="pre">energyzero</span></code>, <code class="docutils literal notranslate"><span class="pre">engie</span></code>, <code class="docutils literal notranslate"><span class="pre">essent</span></code>,
+<code class="docutils literal notranslate"><span class="pre">frank</span></code>, <code class="docutils literal notranslate"><span class="pre">groenelokaal</span></code>, <code class="docutils literal notranslate"><span class="pre">nextenergy</span></code>, <code class="docutils literal notranslate"><span class="pre">oxxio</span></code>, <code class="docutils literal notranslate"><span class="pre">powerpeers</span></code>,
+<code class="docutils literal notranslate"><span class="pre">tibber</span></code>, <code class="docutils literal notranslate"><span class="pre">vandebron</span></code>, <code class="docutils literal notranslate"><span class="pre">vattenfall</span></code>, <code class="docutils literal notranslate"><span class="pre">vrijopnaam</span></code>, <code class="docutils literal notranslate"><span class="pre">zonneplan</span></code>.</p>
+</section>
+<section id="fetch-and-print-today-s-price-data">
+<h2>Fetch and print today’s price data<a class="headerlink" href="#fetch-and-print-today-s-price-data" title="Link to this heading"></a></h2>
+<p>Fetches prices and prints all 96 quarter-hour slots to the console, then exits.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --data</span>
+<span class="go">python zonnebrand.py --data --provider zonneplan</span>
+</pre></div>
+</div>
+</section>
+<section id="plot-the-price-chart">
+<h2>Plot the price chart<a class="headerlink" href="#plot-the-price-chart" title="Link to this heading"></a></h2>
+<p>Opens an interactive Plotly chart in your browser showing inkoop, belasting,
+and the total price per quarter-hour slot.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --plot</span>
+<span class="go">python zonnebrand.py --plot --provider anwb</span>
+</pre></div>
+</div>
+</section>
+<section id="force-a-specific-export-limit">
+<h2>Force a specific export limit<a class="headerlink" href="#force-a-specific-export-limit" title="Link to this heading"></a></h2>
+<p>Sets the export limit to an exact percentage and exits immediately, bypassing
+all price-based logic.  Useful for manual overrides or testing.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --set 0     # disable export</span>
+<span class="go">python zonnebrand.py --set 100   # restore full export</span>
+</pre></div>
+</div>
+</section>
+<section id="send-status-e-mails-resend">
+<h2>Send status e-mails (Resend)<a class="headerlink" href="#send-status-e-mails-resend" title="Link to this heading"></a></h2>
+<p>Pass a recipient address with <code class="docutils literal notranslate"><span class="pre">--mail</span></code>.  Requires <code class="docutils literal notranslate"><span class="pre">RESEND_API_KEY</span></code> in
+your <code class="docutils literal notranslate"><span class="pre">.secrets/keys</span></code> file.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --mail your@email.com</span>
+</pre></div>
+</div>
+</section>
+<section id="debug-with-a-visible-browser-window">
+<h2>Debug with a visible browser window<a class="headerlink" href="#debug-with-a-visible-browser-window" title="Link to this heading"></a></h2>
+<p>By default the browser runs headless.  Use <code class="docutils literal notranslate"><span class="pre">--browser</span></code> to watch every
+Playwright step in a real browser window — handy when troubleshooting
+ennexOS login issues.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --browser</span>
+</pre></div>
+</div>
+</section>
+<section id="combine-multiple-options">
+<h2>Combine multiple options<a class="headerlink" href="#combine-multiple-options" title="Link to this heading"></a></h2>
+<p>Options can be freely combined:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --provider zonneplan --plot --mail your@email.com</span>
+<span class="go">python zonnebrand.py --provider anwb --browser --mail your@email.com</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="python-api">
+<h1>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h1>
+<section id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;.secrets/keys&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_USERNAME&quot;</span><span class="p">),</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_PASSWORD&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Start the continuous control loop (blocks forever)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>Use a specific energy provider<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;.secrets/keys&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_USERNAME&quot;</span><span class="p">),</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_PASSWORD&quot;</span><span class="p">),</span>
+    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;zonneplan&quot;</span><span class="p">,</span>   <span class="c1"># include Zonneplan markup in prices</span>
+<span class="p">)</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="fetch-and-inspect-price-data">
+<h2>Fetch and inspect price data<a class="headerlink" href="#fetch-and-inspect-price-data" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;api&quot;</span><span class="p">)</span>
+
+<span class="c1"># Returns a list of dicts: [{date, time, price, provider}, ...]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">fetch_epex</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="c1"># {&#39;date&#39;: &#39;2026-05-09&#39;, &#39;time&#39;: &#39;00:00&#39;, &#39;price&#39;: 0.263, &#39;provider&#39;: &#39;api&#39;}</span>
+
+<span class="c1"># Fetch prices for a specific date</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">fetch_epex</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;2026-05-01&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="check-current-price-decision">
+<h2>Check current price decision<a class="headerlink" href="#check-current-price-decision" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">decide_target</span></code> returns the export-limit percentage (0 or 100) and a
+human-readable reason string based on the current price slot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;api&quot;</span><span class="p">)</span>
+<span class="n">data</span>   <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">fetch_epex</span><span class="p">()</span>
+
+<span class="n">target_perc</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">decide_target</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Target: </span><span class="si">{</span><span class="n">target_perc</span><span class="si">}</span><span class="s2">%  |  Reason: </span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Target: 0%  |  negative window 13:00-15:00 (120 min), price -0.1543 €/kWh</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>Plot the price chart<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;zonneplan&quot;</span><span class="p">,</span> <span class="n">showplot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span>   <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">fetch_epex</span><span class="p">()</span>   <span class="c1"># also triggers the plot when showplot=True</span>
+
+<span class="c1"># Or plot explicitly after fetching:</span>
+<span class="n">client</span><span class="o">.</span><span class="n">plot_chart</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="force-set-the-export-limit">
+<h2>Force-set the export limit<a class="headerlink" href="#force-set-the-export-limit" title="Link to this heading"></a></h2>
+<p>Directly writes the value to both SMA parameters via Playwright without going
+through the price-decision logic.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;.secrets/keys&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_USERNAME&quot;</span><span class="p">),</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_PASSWORD&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">set_sma_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># disable export</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_sma_parameters</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># restore export</span>
+</pre></div>
+</div>
+</section>
+<section id="run-with-e-mail-notifications">
+<h2>Run with e-mail notifications<a class="headerlink" href="#run-with-e-mail-notifications" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;.secrets/keys&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_USERNAME&quot;</span><span class="p">),</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_PASSWORD&quot;</span><span class="p">),</span>
+    <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;zonneplan&quot;</span><span class="p">,</span>
+    <span class="n">to_mail</span><span class="o">=</span><span class="s2">&quot;your@email.com&quot;</span><span class="p">,</span>
+    <span class="n">resend_api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RESEND_API_KEY&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="run-with-visible-browser-debug-mode">
+<h2>Run with visible browser (debug mode)<a class="headerlink" href="#run-with-visible-browser-debug-mode" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;.secrets/keys&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_USERNAME&quot;</span><span class="p">),</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_PASSWORD&quot;</span><span class="p">),</span>
+    <span class="n">browser</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># show the Chromium window</span>
+    <span class="n">screenshot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># save PNG screenshots at each step</span>
+<span class="p">)</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">set_sma_parameters</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="use-built-in-example-data-no-internet-required">
+<h2>Use built-in example data (no internet required)<a class="headerlink" href="#use-built-in-example-data-no-internet-required" title="Link to this heading"></a></h2>
+<p>A built-in day’s price profile is available for offline testing.  It contains
+a realistic negative-price window between 13:00 and 15:00.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonnebrand</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+<span class="n">data</span>   <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">fetch_epex</span><span class="p">()</span>
+
+<span class="n">target_perc</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">decide_target</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">target_perc</span><span class="p">,</span> <span class="n">reason</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="fetch-prices-via-the-stroomperuur-nl-json-api-directly">
+<h2>Fetch prices via the stroomperuur.nl JSON API directly<a class="headerlink" href="#fetch-prices-via-the-stroomperuur-nl-json-api-directly" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">zonnebrand</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_stroomperuur</span>
+
+<span class="c1"># Raw EPEX spot price (no provider markup)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">fetch_stroomperuur</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;api&quot;</span><span class="p">)</span>
+
+<span class="c1"># With a provider markup</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">fetch_stroomperuur</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;zonneplan&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2026-05-09&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># {&#39;date&#39;: &#39;2026-05-09&#39;, &#39;time&#39;: &#39;00:00&#39;, &#39;price&#39;: 0.27345,</span>
+<span class="c1">#  &#39;inkoop&#39;: 0.11234, &#39;belasting&#39;: 0.16111}</span>
+</pre></div>
+</div>
+<hr>
+<center>
+        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+        <!-- Show an image ad -->
+        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
+        <div data-ea-publisher="erdogantgithubio" data-ea-type="image" data-ea-style="stickybox"></div>
+</center>
+<hr></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
