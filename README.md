@@ -22,18 +22,6 @@ It detects negative-price windows and adjusts the two export-limit parameters in
 ---
 
 
-# Rules
-
-- When EPEX spot prices are detected changed from positive to negative or the otherway arround, then set SMA parameters are updated:
-
-  - `Parameter.PCC.FlbInv.WMaxNom` → fallback active power limit (%)
-  - `Parameter.PCC.WMaxNom` → grid export limit (%)
-
-- The system checks prices every 15 minutes.
-- Login to Sunny Portal only happens when a **state change is required**.
-
----
-
 # Usage
 
 ```bash
