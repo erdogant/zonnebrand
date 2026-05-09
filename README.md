@@ -4,7 +4,7 @@
 [![LOC](https://sloc.xyz/github/erdogant/zonnebrand/?category=code)](https://github.com/erdogant/zonnebrand/)
 [![Downloads](https://static.pepy.tech/personalized-badge/zonnebrand?period=month&units=international_system&left_color=grey&right_color=brightgreen&left_text=PyPI%20downloads/month)](https://pepy.tech/project/zonnebrand)
 [![Downloads](https://static.pepy.tech/personalized-badge/zonnebrand?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/zonnebrand)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/zonnebrand/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Forks](https://img.shields.io/github/forks/erdogant/zonnebrand.svg)](https://github.com/erdogant/zonnebrand/network)
 [![Issues](https://img.shields.io/github/issues/erdogant/zonnebrand.svg)](https://github.com/erdogant/zonnebrand/issues)
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
