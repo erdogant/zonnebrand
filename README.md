@@ -11,7 +11,7 @@
 [![Donate](https://img.shields.io/badge/Support%20this%20project-grey.svg?logo=github%20sponsors)](https://erdogant.github.io/zonnebrand/pages/html/Documentation.html#)
 
 <div>
-This library automatically regulates SMA solar inverters based on EPEX electricity prices.
+This library automatically regulates SMA solar inverters based on EPEX-spot electricity prices.
 
 It detects negative-price windows and adjusts the two export-limit parameters in ennexOS:
 - 0% during negative prices
@@ -22,60 +22,15 @@ It detects negative-price windows and adjusts the two export-limit parameters in
 
 ---
 
-# Docker usage
-
-## Build & run (recommended first time)
-```bash
-docker compose up -d --build
-```
-
-## Start existing container
-```bash
-docker compose up -d
-```
-
-## Build only
-```bash
-docker compose build
-```
-
-## Check running containers
-```bash
-docker ps
-```
-
-## View logs
-```bash
-docker logs -f zonnebrand
-```
-
-## List images
-```bash
-docker image ls
-```
-
-## Cleanup unused resources
-```bash
-docker system prune
-docker builder prune
-```
-
-## Remove a specific container
-```bash
-docker rm -f <container_id>
-```
-
----
 
 # Rules
 
-- Only act when a contiguous negative-price window is **>= MIN_WINDOW_MINUTES**.
-- Two SMA parameters are updated when a state change is needed:
+- When EPEX spot prices are detected changed from positive to negative or the otherway arround, then set SMA parameters are updated:
 
   - `Parameter.PCC.FlbInv.WMaxNom` → fallback active power limit (%)
   - `Parameter.PCC.WMaxNom` → grid export limit (%)
 
-- The system checks prices every minute.
+- The system checks prices every 15 minutes.
 - Login to Sunny Portal only happens when a **state change is required**.
 
 ---
@@ -83,9 +38,10 @@ docker rm -f <container_id>
 # Usage
 
 ```bash
-python zonnebrand.py --help                 # show all options
-python zonnebrand.py                        # run normal price-based control loop
-python zonnebrand.py --headless            # run with browser visible for debugging
+python zonnebrand.py --help                # show all options
+python zonnebrand.py                       # run normal price-based control loop
+python zonnebrand.py --mail                # send status updates using resend
+python zonnebrand.py --browser             # run with browser visible for debugging
 python zonnebrand.py --provider zonneplan  # use Zonneplan as price source
 python zonnebrand.py --plot                # plot price chart
 python zonnebrand.py --data                # fetch and print price data
@@ -93,7 +49,44 @@ python zonnebrand.py --set 0               # force export limit to 0%
 python zonnebrand.py --set 100             # force export limit to 100%
 ```
 
+# Multiple parameters can be given
+
+```bash
+python zonnebrand.py --provider zonneplan --plot --mail mypersonalmail@gmail.com
+```
+
 <hr>
+
+
+# Docker usage
+
+## Build & run (recommended first time)
+```bash
+docker compose up -d --build
+docker compose build
+```
+
+## Start existing container
+```bash
+docker compose up -d
+```
+
+## List images
+```bash
+docker ps
+docker image ls
+```
+
+## Cleanup unused resources
+```bash
+docker system prune
+docker builder prune
+docker rm -f <container_id>
+```
+
+
+---
+
 
 ### Contributors
 <p align="left">
