@@ -59,7 +59,7 @@ The ``Zonnebrand`` class accepts the following parameters:
      - ``False``
      - Save PNG screenshots at every Playwright step to the log directory.
    * - ``logdir``
-     - ``'./data/'``
+     - ``'./dashboard/'``
      - Directory for ``zonnebrand.csv`` and ``epex.csv`` log files.
        Use ``'tempdir'`` for the OS temp directory.
    * - ``resend_api_key``
@@ -135,7 +135,7 @@ The following provider names can be passed to ``--provider`` (CLI) or the
 Log files
 #########
 
-Two CSV files are written to ``logdir`` (default ``./data/``):
+Two CSV files are written to ``logdir`` (default ``./dashboard/``):
 
 ``zonnebrand.csv``
     One row per control decision with columns ``date``, ``time``,
