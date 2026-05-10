@@ -99,9 +99,12 @@ class Zonnebrand():
         allowed_models = ['sma-sunny-tripower']
         if self.model not in allowed_models:
             raise ValueError(f"Unsupported model: {self.model!r} Allowed models are: {allowed_models}")
+
         # Set the main page URL for SMA
         if self.model=='sma-sunny-tripower':
             self.URL_MAIN = "https://ennexos.sunnyportal.com/16879812,16879815/configuration/view-parameters"
+            if username is None or password is None:
+                raise ValueError(f"Username and password must be given when using model {self.model}")
 
 
     # =============================================================================
@@ -983,7 +986,7 @@ async def _screenshot(page, label, tempdir=None) -> None:
     safe = label.replace(" ", "_").replace("/", "-")
     if tempdir is None:
         tempdir = tempfile.gettempdir()
-    path = os.path.join(tempdir, f"sma_{ts}_{safe}.png")
+    path = os.path.join(tempdir, f"zonnebrand_{ts}_{safe}.png")
     await page.screenshot(path=path, full_page=True)
     logger.info("      \U0001f4f8 screenshot \u2192 %s", path)
 

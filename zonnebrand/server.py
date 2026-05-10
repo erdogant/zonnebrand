@@ -176,7 +176,7 @@ class ControllerManager:
         username = config.get('username', '').strip()
         password = config.get('password', '').strip()
         if not username or not password:
-            raise ValueError('SMA username and password are required.')
+            raise ValueError('Username and password are required.')
 
         client = Zonnebrand(
             username        = username,
@@ -345,7 +345,7 @@ def about():
 def api_start():
     data = request.get_json(force=True) or {}
     if not data.get('username') or not data.get('password'):
-        return jsonify({'ok': False, 'error': 'SMA username and password are required.'}), 400
+        return jsonify({'ok': False, 'error': 'Username and password are required.'}), 400
     # Save non-sensitive settings
     save_config(data)
     result = _ctrl.start(data)
