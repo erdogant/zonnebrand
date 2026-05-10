@@ -98,7 +98,13 @@ Quick install
 
     pip install zonnebrand
 
+
+.. code-block:: console
+
+    python zonnebrand.py --provider zonneplan --mail your_mail@gmail.com
+
 -----------------------------------
+
 
 Contents
 ========
@@ -111,6 +117,12 @@ Contents
 
 .. toctree::
    :maxdepth: 1
+   :caption: Dashboard
+
+   dashboard
+
+.. toctree::
+   :maxdepth: 1
    :caption: Examples
 
    Examples
@@ -120,6 +132,7 @@ Contents
    :caption: Documentation
 
    Documentation
+   Dashboard
    zonnebrand.zonnebrand
 
 
