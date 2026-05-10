@@ -182,7 +182,6 @@ class ControllerManager:
             username        = username,
             password        = password,
             provider        = config.get('provider', 'api'),
-            showplot        = False,          # never show plot on Pi
             browser         = False,          # always headless on Pi
             resend_api_key  = config.get('resend_api_key') or None,
             to_mail         = config.get('mail') or None,

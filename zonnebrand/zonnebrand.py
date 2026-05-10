@@ -40,7 +40,6 @@ class Zonnebrand():
                  password=None,
                  provider='api',
                  model='sma-sunny-tripower',
-                 # showplot=False,
                  browser=False,
                  logdir='./dashboard/',
                  to_mail=None,
@@ -81,7 +80,6 @@ class Zonnebrand():
         self.password = password
         self.provider=provider
         self.model = model
-        # self.showplot = showplot
         self.browser = browser
         self.to_mail = to_mail
         self.resend_api_key = resend_api_key
@@ -161,8 +159,6 @@ class Zonnebrand():
                     cache_date = today
                     # Write EPEX prices to csv
                     append_epex_prices(self.logfiles['epex'], cached_data)
-                    # Show plot
-                    # if self.showplot: self.plot()
                     # Show debug info
                     logger.debug("Cached %d price slots", len(cached_data))
 
@@ -1264,7 +1260,6 @@ if __name__ == "__main__":
                         password=PASSWORD,
                         provider=provider,
                         model=model,
-                        # showplot=args.plot,
                         browser=args.browser,
                         resend_api_key=RESEND_API_KEY,
                         to_mail=args.mail,
