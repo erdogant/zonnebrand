@@ -35,7 +35,18 @@ logger = logging.getLogger(__name__)
 class Zonnebrand():
     """zonnebrand."""
 
-    def __init__(self, username=None, password=None, provider='api', showplot=False, browser=False, logdir='./dashboard/', resend_api_key=None, to_mail=None, screenshot=False):
+    def __init__(self, 
+                 username=None,
+                 password=None,
+                 provider='api',
+                 model='sma-sunny-tripower',
+                 # showplot=False,
+                 browser=False,
+                 logdir='./dashboard/',
+                 to_mail=None,
+                 resend_api_key=None,
+                 screenshot=False,
+                 ):
         """Initialize zonnebrand with user-defined parameters.
 
         Parameters
@@ -66,10 +77,11 @@ class Zonnebrand():
             * https://erdogant.github.io/zonnebrand
 
         """
-        self.provider=provider
         self.username = username
         self.password = password
-        self.showplot = showplot
+        self.provider=provider
+        self.model = model
+        # self.showplot = showplot
         self.browser = browser
         self.to_mail = to_mail
         self.resend_api_key = resend_api_key
@@ -81,9 +93,18 @@ class Zonnebrand():
         # Re-evaluate prices every x seconds. Data is available for 15min interval.
         self.CHECK_INTERVAL_SECONDS = 60*15
         self.COUNTRY = 'NL'
-        self.URL_SUNNY = "https://ennexos.sunnyportal.com/16879812,16879815/configuration/view-parameters"
         self.URL_STROOMPERUUR = "https://stroomperuur.nl/?kwartier=1"
+        self.URL_MAIN = None
         self.set_logfile(logdir)
+        
+        # Check the allowed models
+        allowed_models = ['sma-sunny-tripower']
+        if self.model not in allowed_models:
+            raise ValueError(f"Unsupported model: {self.model!r} Allowed models are: {allowed_models}")
+        # Set the main page URL for SMA
+        if self.model=='sma-sunny-tripower':
+            self.URL_MAIN = "https://ennexos.sunnyportal.com/16879812,16879815/configuration/view-parameters"
+
 
     # =============================================================================
     # LOGFILES
@@ -97,11 +118,11 @@ class Zonnebrand():
         logdir = os.path.expanduser(logdir)
     
         # If user passed a directory only → append default filename
-        logSMAPath = os.path.join(logdir, "zonnebrand.csv")
+        logStatus = os.path.join(logdir, "status.csv")
         logEpex = os.path.join(logdir, "epex.csv")
-    
+
         # 3) Ensure directory exists
-        logdir = os.path.dirname(logSMAPath)
+        logdir = os.path.dirname(logStatus)
 
         # Create dir if required
         if logdir and not os.path.exists(logdir):
@@ -109,10 +130,10 @@ class Zonnebrand():
             logger.info(f"Created directory: {logdir}")
     
         # 4) Create header if file does not exist
-        append_SMA_data(logSMAPath)
+        append_log_data(logStatus)
 
         # 5) Store and show
-        self.logfiles = {'sma': logSMAPath, 'epex': logEpex, 'tempdir': logdir}
+        self.logfiles = {'status': logStatus, 'epex': logEpex, 'tempdir': logdir}
         logger.info(f"Logfiles: {self.logfiles}")
     
 
@@ -128,7 +149,7 @@ class Zonnebrand():
     
         # Resolve logfile path
         if self.logfiles:
-            logger.info("Logging to: %s", self.logfiles['sma'])
+            logger.info("Logging to: %s", self.logfiles['status'])
     
         while True:
             try:
@@ -141,7 +162,7 @@ class Zonnebrand():
                     # Write EPEX prices to csv
                     append_epex_prices(self.logfiles['epex'], cached_data)
                     # Show plot
-                    if self.showplot: self.plot()
+                    # if self.showplot: self.plot()
                     # Show debug info
                     logger.debug("Cached %d price slots", len(cached_data))
 
@@ -151,8 +172,15 @@ class Zonnebrand():
                 # Set SMA parameters when needed
                 if target_perc != last_state:
                     logger.info("State change → %d%% | %s", target_perc, reason)
-                    self.set_sma_parameters(target_perc)
+
+                    # Make changes to SMA Sunny Tripower
+                    if self.model=='sma-sunny-tripower':
+                        self.set_sma_parameters(target_perc)
+
+                    # Store percentage
                     last_state = target_perc
+
+                    # Send mail
                     if SENDMAIL_FLAG:
                         html, status = self.create_html_status(target_perc, reason)
                         send_html_email(to=self.to_mail, api_key=self.resend_api_key, subject="Zonnebrand Status Update", html=html)
@@ -160,7 +188,7 @@ class Zonnebrand():
                     logger.info("No change needed (%d%%) | %s", target_perc, reason)
 
                 # Append to CSV
-                append_SMA_data(self.logfiles['sma'], target_perc, reason)
+                append_log_data(self.logfiles['status'], target_perc, reason)
                 # Mark this iteration
                 logger.info("--------------------------------------------")
 
@@ -333,7 +361,7 @@ class Zonnebrand():
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             try:
-                loop.run_until_complete(_set_sma_parameters_async(value, self.URL_SUNNY, self.username, self.password, browser=self.browser, tempdir=self.logfiles['tempdir'], screenshot=self.screenshot))
+                loop.run_until_complete(_set_sma_parameters_async(value, self.URL_MAIN, self.username, self.password, browser=self.browser, tempdir=self.logfiles['tempdir'], screenshot=self.screenshot))
             except Exception as exc:
                 exc_holder.append(exc)
             finally:
@@ -466,7 +494,7 @@ class Zonnebrand():
         # 6) Open in browser
         tmp = os.path.join(self.logfiles['tempdir'], f'{self.provider}_epex_prices.html')        
         fig.write_html(tmp, auto_open=True)
-    
+
 
     def example_data(self):
         data = [{'time': '0:00', 'price': 0.26377}, {'time': '0:15', 'price': 0.25477}, {'time': '0:30', 'price': 0.25566}, {'time': '0:45', 'price': 0.25061}, {'time': '1:00', 'price': 0.25396}, {'time': '1:15', 'price': 0.25351}, {'time': '1:30', 'price': 0.25115}, {'time': '1:45', 'price': 0.24641}, {'time': '2:00', 'price': 0.24579}, {'time': '2:15', 'price': 0.24733}, {'time': '2:30', 'price': 0.25245}, {'time': '2:45', 'price': 0.24986}, {'time': '3:00', 'price': 0.24614}, {'time': '3:15', 'price': 0.24458}, {'time': '3:30', 'price': 0.2427}, {'time': '3:45', 'price': 0.24603}, {'time': '4:00', 'price': 0.24016}, {'time': '4:15', 'price': 0.23885}, {'time': '4:30', 'price': 0.23927}, {'time': '4:45', 'price': 0.24002}, {'time': '5:00', 'price': 0.23771}, {'time': '5:15', 'price': 0.24067}, {'time': '5:30', 'price': 0.24044}, {'time': '5:45', 'price': 0.24309}, {'time': '6:00', 'price': 0.24144}, {'time': '6:15', 'price': 0.23675}, {'time': '6:30', 'price': 0.23787}, {'time': '6:45', 'price': 0.22687}, {'time': '7:00', 'price': 0.25977}, {'time': '7:15', 'price': 0.23098}, {'time': '7:30', 'price': 0.20966}, {'time': '7:45', 'price': 0.20563}, {'time': '8:00', 'price': 0.22351}, {'time': '8:15', 'price': 0.21297}, {'time': '8:30', 'price': 0.20369}, {'time': '8:45', 'price': 0.19391}, {'time': '9:00', 'price': 0.21676}, {'time': '9:15', 'price': 0.16768}, {'time': '9:30', 'price': 0.15371}, {'time': '9:45', 'price': 0.13496}, {'time': '10:00', 'price': 0.15325}, {'time': '10:15', 'price': 0.14587}, {'time': '10:30', 'price': 0.13574}, {'time': '10:45', 'price': 0.12953}, {'time': '11:00', 'price': 0.14453}, {'time': '11:15', 'price': 0.13903}, {'time': '11:30', 'price': 0.13874}, {'time': '11:45', 'price': 0.13823}, {'time': '12:00', 'price': 0.13833}, {'time': '12:15', 'price': 0.14435}, {'time': '12:30', 'price': 0.1473}, {'time': '12:45', 'price': 0.15167}, {'time': '13:00', 'price': -0.14458}, {'time': '13:15', 'price': -0.15183}, {'time': '13:30', 'price': -0.15371}, {'time': '13:45', 'price': -0.15377}, {'time': '14:00', 'price': -0.16231}, {'time': '14:15', 'price': -0.16722}, {'time': '14:30', 'price': -0.15375}, {'time': '14:45', 'price': -0.15371}, {'time': '15:00', 'price': 0.15361}, {'time': '15:15', 'price': 0.15603}, {'time': '15:30', 'price': 0.16871}, {'time': '15:45', 'price': 0.18298}, {'time': '16:00', 'price': 0.17555}, {'time': '16:15', 'price': 0.18569}, {'time': '16:30', 'price': 0.19179}, {'time': '16:45', 'price': 0.20618}, {'time': '17:00', 'price': 0.14626}, {'time': '17:15', 'price': 0.2241}, {'time': '17:30', 'price': 0.27526}, {'time': '17:45', 'price': 0.30899}, {'time': '18:00', 'price': 0.23384}, {'time': '18:15', 'price': 0.24999}, {'time': '18:30', 'price': 0.261}, {'time': '18:45', 'price': 0.2686}, {'time': '19:00', 'price': 0.26904}, {'time': '19:15', 'price': 0.26569}, {'time': '19:30', 'price': 0.281}, {'time': '19:45', 'price': 0.30019}, {'time': '20:00', 'price': 0.28287}, {'time': '20:15', 'price': 0.2855}, {'time': '20:30', 'price': 0.2874}, {'time': '20:45', 'price': 0.29011}, {'time': '21:00', 'price': 0.28516}, {'time': '21:15', 'price': 0.27868}, {'time': '21:30', 'price': 0.27294}, {'time': '21:45', 'price': 0.26659}, {'time': '22:00', 'price': 0.27702}, {'time': '22:15', 'price': 0.27755}, {'time': '22:30', 'price': 0.26197}, {'time': '22:45', 'price': 0.25462}, {'time': '23:00', 'price': 0.27039}, {'time': '23:15', 'price': 0.25566}, {'time': '23:30', 'price': 0.2494}, {'time': '23:45', 'price': 0.24597}]
@@ -900,7 +928,7 @@ def append_epex_prices(filepath, data):
         for entry in data: writer.writerow([today, entry["time"], entry["price"], entry["provider"]])
 
 
-def append_SMA_data(filepath, target_perc=None, reason=None):
+def append_log_data(filepath, target_perc=None, reason=None):
     if not os.path.exists(filepath):
         with open(filepath, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
@@ -1226,7 +1254,7 @@ if __name__ == "__main__":
     client = Zonnebrand(username=USERNAME,
                         password=PASSWORD,
                         provider=provider,
-                        showplot=args.plot,
+                        # showplot=args.plot,
                         browser=args.browser,
                         resend_api_key=RESEND_API_KEY,
                         to_mail=args.mail,

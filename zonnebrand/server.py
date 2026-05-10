@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 DATA_DIR    = './dashboard'
 EPEX_CSV    = os.path.join(DATA_DIR, 'epex.csv')
-SOLAR_CSV   = os.path.join(DATA_DIR, 'zonnebrand.csv')
+SOLAR_CSV   = os.path.join(DATA_DIR, 'status.csv')
 CONFIG_FILE = os.path.join(DATA_DIR, 'config.json')
 
 os.makedirs(DATA_DIR, exist_ok=True)
@@ -215,7 +215,7 @@ class ControllerManager:
 
         try:
             from zonnebrand import (
-                get_date_time, append_epex_prices, append_SMA_data,
+                get_date_time, append_epex_prices, append_log_data,
             )
             try:
                 from sendmail import send_html_email
@@ -258,7 +258,7 @@ class ControllerManager:
                 else:
                     log.info('[server] No change (%d%%) | %s', target_perc, reason)
 
-                append_SMA_data(client.logfiles['sma'], target_perc, reason)
+                append_log_data(client.logfiles['sma'], target_perc, reason)
                 log.info('[server] ────────────────────────────────')
 
             except requests.RequestException as exc:

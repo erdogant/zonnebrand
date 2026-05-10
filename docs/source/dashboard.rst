@@ -28,12 +28,11 @@ dependencies.  Install it with:
     └── data/
         ├── dashboard.html ← Dashboard front-end
         ├── epex.csv       ← Written by zonnebrand automatically
-        └── zonnebrand.csv ← Written by zonnebrand automatically
+        └── status.csv     ← Written by zonnebrand automatically
 
 .. note::
 
-    ``epex.csv`` and ``zonnebrand.csv`` are created automatically the first
-    time ``zonnebrand`` runs.  You do **not** need to create them manually.
+    ``epex.csv`` and ``status.csv`` are created automatically the first time ``zonnebrand`` runs.  You do **not** need to create them manually.
 
 Launch
 ------
@@ -95,7 +94,7 @@ The dashboard is divided into four areas.
     - Red bars mark negative-price slots.
     - The current slot is highlighted in blue.
     - A yellow filled line shows the recorded solar output percentage from
-      ``zonnebrand.csv`` (right axis, 0 – 100 %).
+      ``status.csv`` (right axis, 0 – 100 %).
     - Use the **‹** and **›** buttons to browse to any historical date that
       has been logged in ``epex.csv``.
 
@@ -107,7 +106,7 @@ The dashboard is divided into four areas.
 
 **Solar log** (bottom right)
     A reverse-chronological list of every decision logged in
-    ``zonnebrand.csv`` for the currently viewed day, showing the time,
+    ``status.csv`` for the currently viewed day, showing the time,
     the target percentage, and the reason string.
 
 -----------------------------------
