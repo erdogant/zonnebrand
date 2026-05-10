@@ -257,7 +257,7 @@ class ControllerManager:
                 else:
                     log.info('[server] No change (%d%%) | %s', target_perc, reason)
 
-                append_log_data(client.logfiles['sma'], target_perc, reason)
+                append_log_data(client.logfiles['status'], target_perc, reason)
                 log.info('[server] ────────────────────────────────')
 
             except requests.RequestException as exc:
