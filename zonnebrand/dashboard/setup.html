@@ -492,7 +492,7 @@ async function pollStatus(){
     if(running) showLog();
   }catch(e){}
 }
-setInterval(pollStatus,60000);
+setInterval(pollStatus,5000);
 
 // ── LOG PANEL ─────────────────────────────────────────────────────────────────
 let _logActive=false, _lastLen=0;
@@ -502,7 +502,7 @@ function showLog(){
   if(!_logActive){
     _logActive=true;
     fetchLogs();
-    setInterval(fetchLogs,50000);
+    setInterval(fetchLogs,4000);
   }
 }
 
