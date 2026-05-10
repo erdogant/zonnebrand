@@ -27,7 +27,9 @@ share/python-wheels/
 MANIFEST
 depricated/
 info/
+depricated/
 *.csv
+config.json
 
 # PyInstaller
 #   Usually these files are written by a python script from a template

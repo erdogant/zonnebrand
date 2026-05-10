@@ -542,6 +542,16 @@
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:16px;">
+      <a href="/setup" id="proc-pill" style="
+        display:inline-flex;align-items:center;gap:7px;
+        font-family:var(--mono);font-size:10px;letter-spacing:1px;
+        padding:5px 12px;border-radius:20px;text-decoration:none;
+        background:var(--surface2);border:1px solid var(--border);
+        color:var(--text-dim);transition:border-color .15s,color .15s;
+      " title="Ga naar Setup">
+        <span id="proc-dot" style="width:7px;height:7px;border-radius:50%;background:var(--text-dim);flex-shrink:0;"></span>
+        <span id="proc-pill-text">—</span>
+      </a>
       <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Wissel thema">
         <div class="toggle-track"><div class="toggle-thumb"></div></div>
         <span id="theme-label">DARK</span>
@@ -1126,6 +1136,31 @@ async function fetchAll() {
   await fetchHistory();
   await fetchSolarLog();
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PROCESS STATUS PILL (header)
+// ═══════════════════════════════════════════════════════════════════════════
+async function pollProcessPill() {
+  try {
+    const d = await fetch('/api/process-status').then(r => r.json());
+    const dot  = document.getElementById('proc-dot');
+    const text = document.getElementById('proc-pill-text');
+    const pill = document.getElementById('proc-pill');
+    if (d.running) {
+      dot.style.background  = 'var(--accent-green)';
+      text.textContent      = `ACTIEF · ${d.uptime || ''}`;
+      pill.style.color      = 'var(--accent-green)';
+      pill.style.borderColor= 'rgba(46,204,113,0.3)';
+    } else {
+      dot.style.background  = 'var(--text-dim)';
+      text.textContent      = 'GESTOPT · setup →';
+      pill.style.color      = 'var(--text-dim)';
+      pill.style.borderColor= 'var(--border)';
+    }
+  } catch(e) {}
+}
+setInterval(pollProcessPill, 10000);
+pollProcessPill();
 
 // ═══════════════════════════════════════════════════════════════════════════
 // THEME TOGGLE
