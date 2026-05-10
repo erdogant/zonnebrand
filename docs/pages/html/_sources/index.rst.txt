@@ -117,9 +117,9 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Dashboard
+   :caption: Server
 
-   dashboard
+   server
 
 .. toctree::
    :maxdepth: 1

@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Documentation" href="Documentation.html" />
-    <link rel="prev" title="Dashboard" href="dashboard.html" /> 
+    <link rel="prev" title="Server" href="server.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,9 +50,9 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Dashboard</span></p>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
@@ -210,10 +210,10 @@ your <code class="docutils literal notranslate"><span class="pre">.secrets/keys<
 </section>
 <section id="debug-with-a-visible-browser-window">
 <h2>Debug with a visible browser window<a class="headerlink" href="#debug-with-a-visible-browser-window" title="Link to this heading"></a></h2>
-<p>By default the browser runs headless.  Use <code class="docutils literal notranslate"><span class="pre">--browser</span></code> to watch every
+<p>By default the browser runs headless.  Use <code class="docutils literal notranslate"><span class="pre">--headless</span> <span class="pre">False</span></code> to watch every
 Playwright step in a real browser window — handy when troubleshooting
 ennexOS login issues.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --browser</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --headless False</span>
 </pre></div>
 </div>
 </section>
@@ -221,7 +221,7 @@ ennexOS login issues.</p>
 <h2>Combine multiple options<a class="headerlink" href="#combine-multiple-options" title="Link to this heading"></a></h2>
 <p>Options can be freely combined:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python zonnebrand.py --provider zonneplan --plot --mail your@email.com</span>
-<span class="go">python zonnebrand.py --provider anwb --browser --mail your@email.com</span>
+<span class="go">python zonnebrand.py --provider anwb --headless False --mail your@email.com</span>
 </pre></div>
 </div>
 </section>
@@ -360,7 +360,7 @@ through the price-decision logic.</p>
 <span class="n">client</span> <span class="o">=</span> <span class="n">Zonnebrand</span><span class="p">(</span>
     <span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_USERNAME&quot;</span><span class="p">),</span>
     <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SUNNY_PASSWORD&quot;</span><span class="p">),</span>
-    <span class="n">browser</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># show the Chromium window</span>
+    <span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>       <span class="c1"># show the Chromium window</span>
     <span class="n">screenshot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># save PNG screenshots at each step</span>
 <span class="p">)</span>
 
@@ -411,7 +411,7 @@ a realistic negative-price window between 13:00 and 15:00.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="dashboard.html" class="btn btn-neutral float-left" title="Dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="server.html" class="btn btn-neutral float-left" title="Server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

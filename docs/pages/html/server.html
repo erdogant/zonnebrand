@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard &mdash; zonnebrand zonnebrand documentation</title>
+  <title>Server &mdash; zonnebrand zonnebrand documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
@@ -50,12 +50,14 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Dashboard</span></p>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Dashboard</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#launch">Launch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-the-dashboard-shows">What the dashboard shows</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#launch">Launch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dashboard">Dashboard</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#dark-light-mode">Dark / light mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#auto-refresh">Auto-refresh</a></li>
 </ul>
@@ -96,9 +98,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Dashboard</li>
+      <li class="breadcrumb-item active">Server</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/dashboard.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/server.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,38 +108,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dashboard">
-<h1>Dashboard<a class="headerlink" href="#dashboard" title="Link to this heading"></a></h1>
-<p>The <strong>Zonnebrand Dashboard</strong> is a live web interface that visualises real-time
+  <section id="server">
+<h1>Server<a class="headerlink" href="#server" title="Link to this heading"></a></h1>
+<p>The <strong>Zonnebrand Server</strong> is a live web interface that visualises real-time
 EPEX day-spot prices, solar panel output history, and the current inverter
 status — all served locally from the same machine that runs <code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code>.</p>
-<figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="_images/dashboard.png"><img alt="Zonnebrand Dashboard screenshot" src="_images/dashboard.png" style="width: 100%;" />
-</a>
-<figcaption>
-<p><span class="caption-text">The Zonnebrand Dashboard in dark mode, showing today’s EPEX prices with the
-solar output overlay, the status cards, and the historic price calendar.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
-</figcaption>
-</figure>
 <hr class="docutils" />
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
-<p>The dashboard requires <strong>Flask</strong> in addition to the normal <code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code>
-dependencies.  Install it with:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>zonnebrand/
-├── server.py          ← Flask server
-└── data/
-    ├── dashboard.html ← Dashboard front-end
-    ├── epex.csv       ← Written by zonnebrand automatically
-    └── zonnebrand.csv ← Written by zonnebrand automatically
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">epex.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code> are created automatically the first
-time <code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code> runs.  You do <strong>not</strong> need to create them manually.</p>
-</div>
-</section>
 <section id="launch">
 <h2>Launch<a class="headerlink" href="#launch" title="Link to this heading"></a></h2>
 <p>Start the dashboard server in a separate terminal (or as a background process):</p>
@@ -146,28 +122,42 @@ time <code class="docutils literal notranslate"><span class="pre">zonnebrand</sp
 </div>
 <p>Then open your browser and go to:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>http://localhost:8000
+http://192.168.XX.XXX:8000
 </pre></div>
 </div>
-<p>To keep the dashboard running alongside <code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code>, you can start both
-processes in parallel, for example with <code class="docutils literal notranslate"><span class="pre">tmux</span></code> or <code class="docutils literal notranslate"><span class="pre">screen</span></code>, or by using
-<code class="docutils literal notranslate"><span class="pre">nohup</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Terminal<span class="w"> </span><span class="m">1</span><span class="w"> </span>—<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>controller
-<span class="go">python -m zonnebrand --provider zonneplan --mail your_mail@gmail.com</span>
-
-<span class="gp"># </span>Terminal<span class="w"> </span><span class="m">2</span><span class="w"> </span>—<span class="w"> </span>run<span class="w"> </span>the<span class="w"> </span>dashboard
-<span class="go">python server.py</span>
-</pre></div>
+<p>To keep the dashboard running alongside <code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code>, you can start both processes in parallel, for example with <code class="docutils literal notranslate"><span class="pre">tmux</span></code> or <code class="docutils literal notranslate"><span class="pre">screen</span></code>, or by using <code class="docutils literal notranslate"><span class="pre">nohup</span></code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">epex.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">status.csv</span></code> are created automatically the first time <code class="docutils literal notranslate"><span class="pre">zonnebrand</span></code> runs.  You do <strong>not</strong> need to create them manually.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>On a Raspberry Pi or home server, add both commands to <code class="docutils literal notranslate"><span class="pre">/etc/rc.local</span></code>
 or create two <code class="docutils literal notranslate"><span class="pre">systemd</span></code> services so they start automatically on boot.</p>
 </div>
-</section>
 <hr class="docutils" />
-<section id="what-the-dashboard-shows">
-<h2>What the dashboard shows<a class="headerlink" href="#what-the-dashboard-shows" title="Link to this heading"></a></h2>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h3>
+<p>The setup-dashboard is divided into various sections to setup your parameters and run the server.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/server_setup.png"><img alt="Zonnebrand Setup Dashboard screenshot" src="_images/server_setup.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">The Zonnebrand setup Dashboard to make the settings using user interface.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="dashboard">
+<h3>Dashboard<a class="headerlink" href="#dashboard" title="Link to this heading"></a></h3>
 <p>The dashboard is divided into four areas.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/dashboard.png"><img alt="Zonnebrand Dashboard screenshot" src="_images/dashboard.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">The Zonnebrand Dashboard, showing today’s EPEX prices with the
+solar output overlay, the status cards, and the historic price calendar.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <dl>
 <dt><strong>Status cards</strong> (top row)</dt><dd><p>A live summary that refreshes every 60 seconds.</p>
 <ul class="simple">
@@ -188,7 +178,7 @@ window is coming up later today.</p>
 <li><p>Red bars mark negative-price slots.</p></li>
 <li><p>The current slot is highlighted in blue.</p></li>
 <li><p>A yellow filled line shows the recorded solar output percentage from
-<code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code> (right axis, 0 – 100 %).</p></li>
+<code class="docutils literal notranslate"><span class="pre">status.csv</span></code> (right axis, 0 – 100 %).</p></li>
 <li><p>Use the <strong>‹</strong> and <strong>›</strong> buttons to browse to any historical date that
 has been logged in <code class="docutils literal notranslate"><span class="pre">epex.csv</span></code>.</p></li>
 </ul>
@@ -199,10 +189,11 @@ are shown in dark red.  Click any cell to jump directly to that day in
 the main chart.</p>
 </dd>
 <dt><strong>Solar log</strong> (bottom right)</dt><dd><p>A reverse-chronological list of every decision logged in
-<code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code> for the currently viewed day, showing the time,
+<code class="docutils literal notranslate"><span class="pre">status.csv</span></code> for the currently viewed day, showing the time,
 the target percentage, and the reason string.</p>
 </dd>
 </dl>
+</section>
 </section>
 <hr class="docutils" />
 <section id="dark-light-mode">

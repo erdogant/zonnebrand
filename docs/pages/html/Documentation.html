@@ -50,9 +50,9 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Dashboard</span></p>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
@@ -136,8 +136,8 @@ ignored to avoid unnecessary toggling.</p></li>
 <li><p><strong>Sends a status e-mail</strong> (via the Resend API) whenever the export limit changes.</p></li>
 <li><p><strong>Sleeps for 15 minutes</strong> and repeats.</p></li>
 </ol>
-<p>All decisions and state changes are appended to <code class="docutils literal notranslate"><span class="pre">data/zonnebrand.csv</span></code>; price
-data is stored in <code class="docutils literal notranslate"><span class="pre">data/epex.csv</span></code>.</p>
+<p>All decisions and state changes are appended to <code class="docutils literal notranslate"><span class="pre">dashboard/status.csv</span></code>; price
+data is stored in <code class="docutils literal notranslate"><span class="pre">dashboard/epex.csv</span></code>.</p>
 </section>
 <section id="configuration-reference">
 <h1>Configuration reference<a class="headerlink" href="#configuration-reference" title="Link to this heading"></a></h1>
@@ -173,7 +173,7 @@ energy-supplier name (e.g. <code class="docutils literal notranslate"><span clas
 <td><p>Open an interactive Plotly price chart in the browser after each
 daily price fetch.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">browser</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">headless</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 <td><p>Run Chromium in <strong>visible</strong> mode (<code class="docutils literal notranslate"><span class="pre">False</span></code> = headless).
 Useful for debugging ennexOS login issues.</p></td>
@@ -184,7 +184,7 @@ Useful for debugging ennexOS login issues.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logdir</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">'./dashboard/'</span></code></p></td>
-<td><p>Directory for <code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">epex.csv</span></code> log files.
+<td><p>Directory for <code class="docutils literal notranslate"><span class="pre">status.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">epex.csv</span></code> log files.
 Use <code class="docutils literal notranslate"><span class="pre">'tempdir'</span></code> for the OS temp directory.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">resend_api_key</span></code></p></td>
@@ -292,7 +292,7 @@ Use <code class="docutils literal notranslate"><span class="pre">'tempdir'</span
 <h1>Log files<a class="headerlink" href="#log-files" title="Link to this heading"></a></h1>
 <p>Two CSV files are written to <code class="docutils literal notranslate"><span class="pre">logdir</span></code> (default <code class="docutils literal notranslate"><span class="pre">./dashboard/</span></code>):</p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">zonnebrand.csv</span></code></dt><dd><p>One row per control decision with columns <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>,
+<dt><code class="docutils literal notranslate"><span class="pre">status.csv</span></code></dt><dd><p>One row per control decision with columns <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>,
 <code class="docutils literal notranslate"><span class="pre">target_percent</span></code>, and <code class="docutils literal notranslate"><span class="pre">reason</span></code>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">epex.csv</span></code></dt><dd><p>One row per quarter-hour price slot with columns <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>,

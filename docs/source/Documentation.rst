@@ -52,7 +52,7 @@ The ``Zonnebrand`` class accepts the following parameters:
      - Open an interactive Plotly price chart in the browser after each
        daily price fetch.
    * - ``headless``
-     - ``True``
+     - ``False``
      - Run Chromium in **visible** mode (``False`` = headless).
        Useful for debugging ennexOS login issues.
    * - ``screenshot``

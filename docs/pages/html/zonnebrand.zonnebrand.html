@@ -49,9 +49,9 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#docker">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Dashboard</span></p>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
@@ -83,14 +83,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#zonnebrand.zonnebrand.Zonnebrand.set_sma_parameters"><code class="docutils literal notranslate"><span class="pre">Zonnebrand.set_sma_parameters()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.append_SMA_data"><code class="docutils literal notranslate"><span class="pre">append_SMA_data()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.append_epex_prices"><code class="docutils literal notranslate"><span class="pre">append_epex_prices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.append_log_data"><code class="docutils literal notranslate"><span class="pre">append_log_data()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.fetch_stroomperuur"><code class="docutils literal notranslate"><span class="pre">fetch_stroomperuur()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.get_current_negative_window"><code class="docutils literal notranslate"><span class="pre">get_current_negative_window()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.get_date_time"><code class="docutils literal notranslate"><span class="pre">get_date_time()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.get_provider_option"><code class="docutils literal notranslate"><span class="pre">get_provider_option()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.load_epex_data"><code class="docutils literal notranslate"><span class="pre">load_epex_data()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.parse_prices"><code class="docutils literal notranslate"><span class="pre">parse_prices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zonnebrand.zonnebrand.str2bool"><code class="docutils literal notranslate"><span class="pre">str2bool()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -132,7 +133,7 @@ Licence     : GNU GENERAL PUBLIC LICENSE VERSION 3</p>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">Zonnebrand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'api'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showplot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./dashboard/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resend_api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_mail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screenshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">Zonnebrand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'api'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sma-sunny-tripower'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headless</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./dashboard/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_mail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resend_api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screenshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.Zonnebrand" title="Link to this definition"></a></dt>
 <dd><p>zonnebrand.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="zonnebrand.zonnebrand.Zonnebrand.create_html_status">
@@ -211,17 +212,17 @@ so it works correctly in every environment.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="zonnebrand.zonnebrand.append_SMA_data">
-<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">append_SMA_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_perc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.append_SMA_data" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="zonnebrand.zonnebrand.append_epex_prices">
 <span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">append_epex_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.append_epex_prices" title="Link to this definition"></a></dt>
 <dd><p>Append 15‑minute price data to CSV.
 Creates directory + file + header if missing.
 Each row: YYYY‑MM‑DD, HH:MM, price</p>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.append_log_data">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">append_log_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_perc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.append_log_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zonnebrand.zonnebrand.fetch_stroomperuur">
@@ -288,6 +289,11 @@ Returns (window_start, window_end) or (None, None).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="zonnebrand.zonnebrand.parse_prices">
 <span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">parse_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.parse_prices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zonnebrand.zonnebrand.str2bool">
+<span class="sig-prename descclassname"><span class="pre">zonnebrand.zonnebrand.</span></span><span class="sig-name descname"><span class="pre">str2bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonnebrand.zonnebrand.str2bool" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <hr>

@@ -21,8 +21,8 @@ How it works
 4. **Sends a status e-mail** (via the Resend API) whenever the export limit changes.
 5. **Sleeps for 15 minutes** and repeats.
 
-All decisions and state changes are appended to ``data/zonnebrand.csv``; price
-data is stored in ``data/epex.csv``.
+All decisions and state changes are appended to ``dashboard/status.csv``; price
+data is stored in ``dashboard/epex.csv``.
 
 
 Configuration reference
@@ -51,7 +51,7 @@ The ``Zonnebrand`` class accepts the following parameters:
      - ``False``
      - Open an interactive Plotly price chart in the browser after each
        daily price fetch.
-   * - ``browser``
+   * - ``headless``
      - ``False``
      - Run Chromium in **visible** mode (``False`` = headless).
        Useful for debugging ennexOS login issues.
@@ -60,7 +60,7 @@ The ``Zonnebrand`` class accepts the following parameters:
      - Save PNG screenshots at every Playwright step to the log directory.
    * - ``logdir``
      - ``'./dashboard/'``
-     - Directory for ``zonnebrand.csv`` and ``epex.csv`` log files.
+     - Directory for ``status.csv`` and ``epex.csv`` log files.
        Use ``'tempdir'`` for the OS temp directory.
    * - ``resend_api_key``
      - ``None``
@@ -137,7 +137,7 @@ Log files
 
 Two CSV files are written to ``logdir`` (default ``./dashboard/``):
 
-``zonnebrand.csv``
+``status.csv``
     One row per control decision with columns ``date``, ``time``,
     ``target_percent``, and ``reason``.
 

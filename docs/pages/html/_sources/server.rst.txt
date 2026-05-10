@@ -1,38 +1,13 @@
-Dashboard
+Server
 =========
 
-The **Zonnebrand Dashboard** is a live web interface that visualises real-time
+The **Zonnebrand Server** is a live web interface that visualises real-time
 EPEX day-spot prices, solar panel output history, and the current inverter
 status — all served locally from the same machine that runs ``zonnebrand``.
 
-.. figure:: ../figs/dashboard.png
-   :width: 100%
-   :align: center
-   :alt: Zonnebrand Dashboard screenshot
-
-   The Zonnebrand Dashboard in dark mode, showing today's EPEX prices with the
-   solar output overlay, the status cards, and the historic price calendar.
 
 -----------------------------------
 
-Setup
------
-
-The dashboard requires **Flask** in addition to the normal ``zonnebrand``
-dependencies.  Install it with:
-
-.. code-block:: text
-
-    zonnebrand/
-    ├── server.py          ← Flask server
-    └── data/
-        ├── dashboard.html ← Dashboard front-end
-        ├── epex.csv       ← Written by zonnebrand automatically
-        └── status.csv     ← Written by zonnebrand automatically
-
-.. note::
-
-    ``epex.csv`` and ``status.csv`` are created automatically the first time ``zonnebrand`` runs.  You do **not** need to create them manually.
 
 Launch
 ------
@@ -48,18 +23,15 @@ Then open your browser and go to:
 .. code-block:: text
 
     http://localhost:8000
+    http://192.168.XX.XXX:8000
 
-To keep the dashboard running alongside ``zonnebrand``, you can start both
-processes in parallel, for example with ``tmux`` or ``screen``, or by using
-``nohup``:
+To keep the dashboard running alongside ``zonnebrand``, you can start both processes in parallel, for example with ``tmux`` or ``screen``, or by using ``nohup``:
 
-.. code-block:: console
 
-    # Terminal 1 — run the controller
-    python -m zonnebrand --provider zonneplan --mail your_mail@gmail.com
+.. note::
 
-    # Terminal 2 — run the dashboard
-    python server.py
+    ``epex.csv`` and ``status.csv`` are created automatically the first time ``zonnebrand`` runs.  You do **not** need to create them manually.
+
 
 .. tip::
 
@@ -68,10 +40,32 @@ processes in parallel, for example with ``tmux`` or ``screen``, or by using
 
 -----------------------------------
 
-What the dashboard shows
-------------------------
+Setup
+***************
+
+The setup-dashboard is divided into various sections to setup your parameters and run the server.
+
+.. figure:: ../figs/server_setup.png
+   :width: 100%
+   :align: center
+   :alt: Zonnebrand Setup Dashboard screenshot
+
+   The Zonnebrand setup Dashboard to make the settings using user interface.
+
+
+Dashboard
+***************
 
 The dashboard is divided into four areas.
+
+.. figure:: ../figs/dashboard.png
+   :width: 100%
+   :align: center
+   :alt: Zonnebrand Dashboard screenshot
+
+   The Zonnebrand Dashboard, showing today's EPEX prices with the
+   solar output overlay, the status cards, and the historic price calendar.
+
 
 **Status cards** (top row)
     A live summary that refreshes every 60 seconds.

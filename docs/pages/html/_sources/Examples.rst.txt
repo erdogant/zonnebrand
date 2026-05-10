@@ -113,13 +113,13 @@ your ``.secrets/keys`` file.
 Debug with a visible browser window
 *************************************
 
-By default the browser runs headless.  Use ``--browser`` to watch every
+By default the browser runs headless.  Use ``--headless False`` to watch every
 Playwright step in a real browser window — handy when troubleshooting
 ennexOS login issues.
 
 .. code-block:: console
 
-    python zonnebrand.py --browser
+    python zonnebrand.py --headless False
 
 Combine multiple options
 *************************
@@ -129,7 +129,7 @@ Options can be freely combined:
 .. code-block:: console
 
     python zonnebrand.py --provider zonneplan --plot --mail your@email.com
-    python zonnebrand.py --provider anwb --browser --mail your@email.com
+    python zonnebrand.py --provider anwb --headless False --mail your@email.com
 
 
 Python API
@@ -279,7 +279,7 @@ Run with visible browser (debug mode)
     client = Zonnebrand(
         username=os.getenv("SUNNY_USERNAME"),
         password=os.getenv("SUNNY_PASSWORD"),
-        browser=True,       # show the Chromium window
+        headless=False,       # show the Chromium window
         screenshot=True,    # save PNG screenshots at each step
     )
 
