@@ -176,7 +176,7 @@ select option{background:var(--surface2);color:var(--text);}
 <!-- ① CREDENTIALS -->
 <div class="section">
   <div class="sec-hdr open" onclick="toggleSec(this)">
-    <div class="sec-title"><span class="sec-icon">🔐</span> SMA Inloggegevens <span class="sec-tag req">Vereist</span></div>
+    <div class="sec-title"><span class="sec-icon">🔐</span> Inloggegevens <span class="sec-tag req">Vereist</span></div>
     <span class="chevron open">▾</span>
   </div>
   <div class="sec-body open">
@@ -195,7 +195,7 @@ select option{background:var(--surface2);color:var(--text);}
     </div>
     <div class="note info">
       <strong>Privacy:</strong> credentials worden <strong>nooit op schijf opgeslagen</strong>.
-      Ze worden alleen als omgevingsvariabelen doorgegeven aan de controller-thread en zijn nergens zichtbaar in config.json.
+      Ze worden alleen als omgevingsvariabelen doorgegeven aan de controller-thread.
     </div>
   </div>
 </div>
@@ -319,7 +319,7 @@ select option{background:var(--surface2);color:var(--text);}
   <div class="sec-body danger-body">
     <p style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:14px;line-height:1.65;">
       Stel de export-limiet direct in op een vaste waarde. Omzeilt alle prijslogica.
-      Vereist geldige SMA-credentials. De lopende controller blijft actief.
+      Vereist geldige credentials. De lopende controller blijft actief.
     </p>
     <div class="man-row">
       <input type="range" id="manual_pct" min="0" max="100" value="100"
