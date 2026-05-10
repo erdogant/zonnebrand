@@ -419,11 +419,11 @@ class Zonnebrand():
         inkoop = None
         belasting = None
         # Update when data is available
-        if raw[0].get('inkoop'):
-            inkoop      = [r["inkoop"] for r in raw]
-        if raw[0].get('belasting'):
-            belasting   = [r["belasting"] for r in raw]
-        
+        if raw[0].get('inkoop', None) is not None:
+            inkoop = [r["inkoop"] for r in raw]
+        if raw[0].get('belasting', None) is not None:
+            belasting = [r["belasting"] for r in raw]
+
         # 3) Stats
         neg_count = sum(1 for p in prices if p < 0)
         avg = sum(prices) / len(prices)
