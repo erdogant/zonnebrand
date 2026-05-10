@@ -32,7 +32,7 @@ client = Zonnebrand(provider='api')
 # Plot saved EPEX data
 client.plot(retrieve_data='file')
 # Plot most current EPEX data
-client.plot(retrieve_data='current')
+client.plot()
 
 # %% Example data
 from zonnebrand import Zonnebrand
