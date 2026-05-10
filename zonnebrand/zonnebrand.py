@@ -40,7 +40,7 @@ class Zonnebrand():
                  password=None,
                  provider='api',
                  model='sma-sunny-tripower',
-                 browser=False,
+                 headless=True,
                  logdir='./dashboard/',
                  to_mail=None,
                  resend_api_key=None,
@@ -80,7 +80,7 @@ class Zonnebrand():
         self.password = password
         self.provider=provider
         self.model = model
-        self.browser = browser
+        self.headless = headless
         self.to_mail = to_mail
         self.resend_api_key = resend_api_key
         self.screenshot = screenshot
@@ -257,7 +257,7 @@ class Zonnebrand():
                         _fetch_dutch_energy_prices_playwright(
                             self.URL_STROOMPERUUR,
                             provider=self.provider,
-                            browser=self.browser,
+                            headless=self.headless,
                         )
                     )
                 except Exception as e2:
@@ -360,7 +360,7 @@ class Zonnebrand():
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             try:
-                loop.run_until_complete(_set_sma_parameters_async(value, self.URL_MAIN, self.username, self.password, browser=self.browser, tempdir=self.logfiles['tempdir'], screenshot=self.screenshot))
+                loop.run_until_complete(_set_sma_parameters_async(value, self.URL_MAIN, self.username, self.password, headless=self.headless, tempdir=self.logfiles['tempdir'], screenshot=self.screenshot))
             except Exception as exc:
                 exc_holder.append(exc)
             finally:
@@ -828,7 +828,7 @@ def fetch_stroomperuur(provider: str = 'api', date: str = None) -> list[dict]:
     return result
 
 
-async def _fetch_dutch_energy_prices_playwright(url, provider: str = 'api', browser: bool = False) -> list[dict]:
+async def _fetch_dutch_energy_prices_playwright(url, provider: str = 'api', headless: bool = True) -> list[dict]:
     # Get provider
     provider_option = get_provider_option(provider)
     
@@ -838,7 +838,7 @@ async def _fetch_dutch_energy_prices_playwright(url, provider: str = 'api', brow
         return data
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=browser)
+        browser = await p.chromium.launch(headless=headless)
         page = await browser.new_page()
 
         await page.goto(url, wait_until="networkidle")
@@ -1061,12 +1061,12 @@ async def _set_param_via_search(page, key: str, value: int, tempdir=None, screen
 # =============================================================================
 # SMA
 # =============================================================================
-async def _set_sma_parameters_async(value, SUNNY_URL, USERNAME, PASSWORD, browser=False, tempdir=None, screenshot=False) -> None:
+async def _set_sma_parameters_async(value, SUNNY_URL, USERNAME, PASSWORD, headless: bool=True, tempdir=None, screenshot=False) -> None:
     """Async Playwright implementation – visible browser with full debug output."""
 
     async with async_playwright() as p:
-        # browser=False so you can watch every step in the real browser window
-        browser = await p.chromium.launch(headless=browser, slow_mo=150)
+        # headless=False so you can watch every step in the real browser window
+        browser = await p.chromium.launch(headless=headless, slow_mo=150)
         context = await browser.new_context(viewport={"width": 1280, "height": 900})
         page    = await context.new_page()
 
@@ -1182,18 +1182,21 @@ async def _set_sma_parameters_async(value, SUNNY_URL, USERNAME, PASSWORD, browse
             await browser.close()
 
 
+def str2bool(v):
+    v = v.lower().strip()
+    if v in ("true", "1", "yes", "y", "t"):
+        return True
+    if v in ("false", "0", "no", "n", "f"):
+        return False
+    raise ValueError(f"Invalid boolean value: {v}")
+
+
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
         description="Zonnebrand controller"
     )
-
-    # parser.add_argument(
-    #     "--plot",
-    #     action="store_true",
-    #     help="Fetch prices and open the interactive chart in the browser.",
-    # )
 
     parser.add_argument(
         "--model",
@@ -1203,16 +1206,11 @@ if __name__ == "__main__":
     )
     
     parser.add_argument(
-        "--browser",
-        action="store_false",
-        help="Show the browser when active.",
+        "--headless",
+        type=str2bool,
+        default=True,
+        help="Run browser headless (True/False).",
     )
-
-    # parser.add_argument(
-    #     "--data",
-    #     action="store_true",
-    #     help="Fetch prices and print them and return",
-    # )
 
     parser.add_argument(
         "--provider",
@@ -1240,12 +1238,16 @@ if __name__ == "__main__":
         ),
     )
 
+
+
+
     # Parse all arguments
     args = parser.parse_args()
     # Get provider
     provider = args.provider.lower()
     # Get model/type
     model = args.model.lower()
+    
     # Get keys
     check_keys = load_dotenv("../.secrets/keys")
     if not check_keys:
@@ -1263,14 +1265,12 @@ if __name__ == "__main__":
                         password=PASSWORD,
                         provider=provider,
                         model=model,
-                        browser=args.browser,
+                        headless=args.headless,
                         resend_api_key=RESEND_API_KEY,
                         to_mail=args.mail,
                         )
 
-    # if args.data:
-    #     data = client.fetch_epex()
-    #     print(data)
+
     if args.set is not None:
         if not USERNAME or not PASSWORD: raise ValueError("Missing SUNNY_USERNAME / SUNNY_PASSWORD in .secrets")
         logger.info("Manual override: setting export limit to %d%%", args.set)

@@ -182,7 +182,7 @@ class ControllerManager:
             username        = username,
             password        = password,
             provider        = config.get('provider', 'api'),
-            browser         = False,          # always headless on Pi
+            headless        = True,          # Always headless on server-side
             resend_api_key  = config.get('resend_api_key') or None,
             to_mail         = config.get('mail') or None,
             screenshot      = config.get('screenshot', False),
@@ -288,7 +288,7 @@ _ctrl = ControllerManager()
 SAFE_KEYS = {
     'provider', 'country', 'mail', 'logdir',
     'min_window_minutes', 'check_interval_minutes',
-    'show_browser', 'show_plot', 'screenshot',
+    'headless', 'screenshot',
 }
 
 def load_config() -> dict:
