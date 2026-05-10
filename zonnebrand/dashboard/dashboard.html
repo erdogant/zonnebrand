@@ -24,8 +24,70 @@
     --mono: 'Space Mono', monospace;
     --sans: 'Syne', sans-serif;
     --radius: 4px;
+    --grid-line: rgba(255,255,255,0.015);
     --glow-green: 0 0 20px rgba(46,204,113,0.15);
     --glow-red: 0 0 20px rgba(231,76,60,0.15);
+    --theme-transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+
+  :root.light {
+    --bg: #f0f2f7;
+    --surface: #ffffff;
+    --surface2: #e8ebf2;
+    --border: #d0d5e8;
+    --accent-yellow: #c8960a;
+    --accent-green: #1a9e52;
+    --accent-red: #c0392b;
+    --accent-blue: #2980b9;
+    --accent-orange: #d68910;
+    --text: #1a1e2e;
+    --text-dim: #7a849e;
+    --text-mid: #4a5270;
+    --grid-line: rgba(0,0,0,0.04);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px 5px 8px;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mid);
+    transition: var(--theme-transition), transform 0.1s;
+    user-select: none;
+  }
+
+  .theme-toggle:hover { color: var(--text); transform: scale(1.03); }
+
+  .toggle-track {
+    width: 32px; height: 18px;
+    background: var(--border);
+    border-radius: 9px;
+    position: relative;
+    transition: background 0.25s;
+    flex-shrink: 0;
+  }
+
+  :root.light .toggle-track { background: var(--accent-yellow); }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    transition: transform 0.25s, background 0.25s;
+  }
+
+  :root.light .toggle-thumb {
+    transform: translateX(14px);
+    background: #fff;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,8 +106,8 @@
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 32px 32px;
     pointer-events: none;
     z-index: 0;
@@ -479,9 +541,15 @@
         <h1>Zonne<span>brand</span></h1>
       </div>
     </div>
-    <div class="header-meta">
-      <div id="clock">--:--:--</div>
-      <div id="date-display">--</div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Wissel thema">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span id="theme-label">DARK</span>
+      </button>
+      <div class="header-meta">
+        <div id="clock">--:--:--</div>
+        <div id="date-display">--</div>
+      </div>
     </div>
   </header>
 
@@ -744,6 +812,8 @@ function buildMainChart(epexRows, solarRows, targetDate) {
   const yMin = Math.min(...prices, 0);
   const yMax = Math.max(...prices, 0.01);
 
+  const tc = getThemeColors();
+
   mainChart = new Chart(ctx, {
     data: {
       labels,
@@ -782,11 +852,11 @@ function buildMainChart(epexRows, solarRows, targetDate) {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#1c2030',
-          borderColor: '#252a3a',
+          backgroundColor: tc.tooltipBg,
+          borderColor: tc.tooltipBorder,
           borderWidth: 1,
-          titleColor: '#9ba5c0',
-          bodyColor: '#e8ecf4',
+          titleColor: tc.tooltipTitle,
+          bodyColor: tc.tooltipBody,
           titleFont: { family: "'Space Mono', monospace", size: 11 },
           bodyFont: { family: "'Space Mono', monospace", size: 11 },
           callbacks: {
@@ -801,9 +871,9 @@ function buildMainChart(epexRows, solarRows, targetDate) {
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
+          grid: { color: tc.gridColor },
           ticks: {
-            color: '#6b7590',
+            color: tc.tickColor,
             font: { family: "'Space Mono', monospace", size: 9 },
             maxTicksLimit: 12,
             maxRotation: 0,
@@ -811,9 +881,9 @@ function buildMainChart(epexRows, solarRows, targetDate) {
         },
         y: {
           position: 'left',
-          grid: { color: 'rgba(255,255,255,0.05)' },
+          grid: { color: tc.gridColor },
           ticks: {
-            color: '#6b7590',
+            color: tc.tickColor,
             font: { family: "'Space Mono', monospace", size: 9 },
             callback: v => `€${v.toFixed(3)}`
           },
@@ -825,7 +895,7 @@ function buildMainChart(epexRows, solarRows, targetDate) {
           min: 0, max: 120,
           grid: { drawOnChartArea: false },
           ticks: {
-            color: 'rgba(245,197,66,0.5)',
+            color: tc.y2TickColor,
             font: { family: "'Space Mono', monospace", size: 9 },
             callback: v => `${v}%`
           }
@@ -1057,7 +1127,45 @@ async function fetchAll() {
   await fetchSolarLog();
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// THEME TOGGLE
+// ═══════════════════════════════════════════════════════════════════════════
+function getThemeColors() {
+  const light = document.documentElement.classList.contains('light');
+  return {
+    gridColor:    light ? 'rgba(0,0,0,0.06)'  : 'rgba(255,255,255,0.05)',
+    tickColor:    light ? '#7a849e'            : '#6b7590',
+    tooltipBg:    light ? '#ffffff'            : '#1c2030',
+    tooltipBorder:light ? '#d0d5e8'            : '#252a3a',
+    tooltipTitle: light ? '#4a5270'            : '#9ba5c0',
+    tooltipBody:  light ? '#1a1e2e'            : '#e8ecf4',
+    y2TickColor:  light ? 'rgba(200,150,10,0.6)' : 'rgba(245,197,66,0.5)',
+  };
+}
+
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light');
+  $('theme-label').textContent = isLight ? 'LIGHT' : 'DARK';
+  localStorage.setItem('zb-theme', isLight ? 'light' : 'dark');
+  // Redraw chart with updated colours
+  if (availableDates.length) loadChartForDate(availableDates[selectedDateIdx]);
+}
+
+// Restore saved preference immediately (before first paint)
+(function() {
+  if (localStorage.getItem('zb-theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+})();
+
 fetchAll();
+
+// Fix toggle label after DOM is ready (theme may have been restored above)
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.documentElement.classList.contains('light') && $('theme-label')) {
+    $('theme-label').textContent = 'LIGHT';
+  }
+});
 </script>
 </body>
 </html>
