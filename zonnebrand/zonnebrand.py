@@ -1187,26 +1187,33 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Zonnebrand SMA controller"
+        description="Zonnebrand controller"
     )
+
+    # parser.add_argument(
+    #     "--plot",
+    #     action="store_true",
+    #     help="Fetch prices and open the interactive chart in the browser.",
+    # )
 
     parser.add_argument(
-        "--plot",
-        action="store_true",
-        help="Fetch prices and open the interactive chart in the browser.",
+        "--model",
+        type=str,
+        default='sma-sunny-tripower',
+        help="Brand/ Type solor panels (e.g. sma-sunny-tripower)",
     )
-
+    
     parser.add_argument(
         "--browser",
         action="store_false",
         help="Show the browser when active.",
     )
 
-    parser.add_argument(
-        "--data",
-        action="store_true",
-        help="Fetch prices and print them and return",
-    )
+    # parser.add_argument(
+    #     "--data",
+    #     action="store_true",
+    #     help="Fetch prices and print them and return",
+    # )
 
     parser.add_argument(
         "--provider",
@@ -1238,7 +1245,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     # Get provider
     provider = args.provider.lower()
-
+    # Get model/type
+    model = args.model.lower()
+    # Get keys
     check_keys = load_dotenv("../.secrets/keys")
     if not check_keys:
         load_dotenv(".secrets/keys")
@@ -1254,22 +1263,22 @@ if __name__ == "__main__":
     client = Zonnebrand(username=USERNAME,
                         password=PASSWORD,
                         provider=provider,
+                        model=model,
                         # showplot=args.plot,
                         browser=args.browser,
                         resend_api_key=RESEND_API_KEY,
                         to_mail=args.mail,
                         )
 
-    if args.data:
-        data = client.fetch_epex()
-        # data = asyncio.run(_fetch_dutch_energy_prices_playwright(client.URL_STROOMPERUUR, provider=provider, browser=args.browser))
-        print(data)
-    elif args.set is not None:
+    # if args.data:
+    #     data = client.fetch_epex()
+    #     print(data)
+    if args.set is not None:
         if not USERNAME or not PASSWORD: raise ValueError("Missing SUNNY_USERNAME / SUNNY_PASSWORD in .secrets")
         logger.info("Manual override: setting export limit to %d%%", args.set)
         # Set directly the percentage in SMA
         client.set_sma_parameters(args.set)
-        logger.info("Done.")
+        logger.info("Done")
     else:
         if not USERNAME or not PASSWORD: raise ValueError("Missing SUNNY_USERNAME / SUNNY_PASSWORD in .secrets")
         # Run main
