@@ -687,7 +687,10 @@ const fmt = (n, d=3) => n != null ? n.toFixed(d) : '—';
 const fmtP = n => n != null ? `€${fmt(n,4)}` : '—';
 
 function dateToStr(d) {
-  return d.toISOString().split('T')[0];
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function strToDate(s) {
@@ -745,13 +748,20 @@ let selectedDateIdx = 0; // 0 = most recent
 
 function updateDateLabel() {
   if (!availableDates.length) return;
+
   const d = availableDates[selectedDateIdx];
   const isToday = d === dateToStr(today());
+
   $('selected-date-label').textContent = isToday ? 'vandaag' : d;
-  $('next-day').disabled = selectedDateIdx === 0;
-  $('next-day').style.opacity = selectedDateIdx === 0 ? '0.3' : '1';
-  $('prev-day').disabled = selectedDateIdx >= availableDates.length - 1;
-  $('prev-day').style.opacity = selectedDateIdx >= availableDates.length-1 ? '0.3' : '1';
+
+  const atNewest = selectedDateIdx === 0;
+  const atOldest = selectedDateIdx >= availableDates.length - 1;
+
+  $('next-day').disabled = atNewest;
+  $('next-day').style.opacity = atNewest ? '0.3' : '1';
+
+  $('prev-day').disabled = atOldest;
+  $('prev-day').style.opacity = atOldest ? '0.3' : '1';
 }
 
 $('prev-day').addEventListener('click', () => {
