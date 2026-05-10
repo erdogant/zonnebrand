@@ -219,7 +219,7 @@ Plot the price chart
     data   = client.fetch_epex()   # also triggers the plot when showplot=True
 
     # Or plot explicitly after fetching:
-    client.plot_chart()
+    client.plot()
 
 Force-set the export limit
 ***************************

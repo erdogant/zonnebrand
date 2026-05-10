@@ -27,7 +27,7 @@ RUN playwright install chromium --only-shell
 COPY . .
 
 # Ensure data directory exists (also mounted as a volume in docker-compose)
-RUN mkdir -p /app/data
+RUN mkdir -p /app/dashboard
 
 # Run the continuous loop.
 # Override --provider at runtime: docker run ... python zonnebrand/zonnebrand.py --provider anwb

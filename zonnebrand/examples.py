@@ -12,8 +12,8 @@ from zonnebrand import Zonnebrand
 
 # Initialize
 client = Zonnebrand()
-client.plot_chart()
-client.plot_chart('file')
+client.plot()
+client.plot('file')
 
 
 # %% Fetch data
@@ -22,7 +22,7 @@ from zonnebrand import Zonnebrand
 
 client = Zonnebrand(provider='zonneplan')
 data = client.fetch_epex()
-client.plot_chart()
+client.plot()
 
 # %% Plot from file
 from zonnebrand import Zonnebrand
@@ -30,9 +30,9 @@ from zonnebrand import Zonnebrand
 # Initialize
 client = Zonnebrand(provider='api')
 # Plot saved EPEX data
-client.plot_chart(retrieve_data='file')
+client.plot(retrieve_data='file')
 # Plot most current EPEX data
-client.plot_chart(retrieve_data='current')
+client.plot(retrieve_data='current')
 
 # %% Example data
 from zonnebrand import Zonnebrand
@@ -48,7 +48,7 @@ from zonnebrand import Zonnebrand
 # Initialize
 client = Zonnebrand(provider='api')
 # Show chart
-client.plot_chart()
+client.plot()
 
 # %% Retrieve EPEX data from provider
 from zonnebrand import Zonnebrand
@@ -56,7 +56,7 @@ from zonnebrand import Zonnebrand
 # Initialize
 client = Zonnebrand(provider='zonneplan')
 # Show chart
-client.plot_chart()
+client.plot()
 
 # %% Set zonnebrand parameters based on positive-and-negative price changes
 from dotenv import load_dotenv

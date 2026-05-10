@@ -8,6 +8,6 @@ services:
       - .secrets/keys
 
     volumes:
-      - ./data:/app/data
+      - ./dashboard:/app/dashboard
 
     command: python zonnebrand/zonnebrand.py --provider zonneplan

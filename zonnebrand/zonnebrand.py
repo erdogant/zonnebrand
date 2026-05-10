@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 class Zonnebrand():
     """zonnebrand."""
 
-    def __init__(self, username=None, password=None, provider='api', showplot=False, browser=False, logdir='./data/', resend_api_key=None, to_mail=None, screenshot=False):
+    def __init__(self, username=None, password=None, provider='api', showplot=False, browser=False, logdir='./dashboard/', resend_api_key=None, to_mail=None, screenshot=False):
         """Initialize zonnebrand with user-defined parameters.
 
         Parameters
@@ -57,7 +57,7 @@ class Zonnebrand():
         >>> # Fetch data
         >>> client.fetch_epex()
         >>> # Plot chart
-        >>> client.plot_chart()
+        >>> client.plot()
         >>> # Run
         >>> client.run()
 
@@ -141,7 +141,7 @@ class Zonnebrand():
                     # Write EPEX prices to csv
                     append_epex_prices(self.logfiles['epex'], cached_data)
                     # Show plot
-                    if self.showplot: self.plot_chart()
+                    if self.showplot: self.plot()
                     # Show debug info
                     logger.debug("Cached %d price slots", len(cached_data))
 
@@ -350,7 +350,7 @@ class Zonnebrand():
         return
 
 
-    def plot_chart(self, retrieve_data=None):
+    def plot(self, retrieve_data=None):
         """ Plot EPEX data.
 
         Parameters

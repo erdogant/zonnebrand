@@ -26,7 +26,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 depricated/
-data/
 info/
 
 # PyInstaller
