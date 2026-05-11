@@ -431,14 +431,17 @@ function setMsg(txt,cls=''){
 async function startCtrl(){
   const cfg=collectConfig();
   if(!cfg.username||!cfg.password){setMsg('⚠ Gebruikersnaam en wachtwoord zijn verplicht.','err');return;}
-  setMsg('Starten…');
+  setMsg('Opstarten…');
   $('btn-start').disabled=true;
   try{
     const res=await fetch('/api/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(cfg)});
     const d=await res.json();
     if(d.ok){
-      setMsg('✓ Controller gestart','ok');
-      showLog();
+      setMsg('Opstarten… live log actief','ok');
+      // Show log immediately and begin rapid polling so boot output is
+      // visible straight away — before _isRunning is confirmed by pollStatus.
+      showLog(true);
+      _startupPoll();
     }else{
       setMsg('✗ '+d.error,'err');
       $('btn-start').disabled=false;
@@ -461,10 +464,36 @@ async function stopCtrl(){
 //   • fetchLogs:  only when running, every 5s; stops when controller stops
 //   • Neither polls at all when the browser tab is hidden (visibilitychange)
 
-let _isRunning = false;
-let _lastLen   = 0;
-let _statusTimer = null;
-let _logTimer    = null;
+let _isRunning  = false;
+let _startingUp = false;  // true between Start-press and first confirmed running
+let _lastLen    = 0;
+let _statusTimer  = null;
+let _logTimer     = null;
+let _startupTimer = null;
+
+// Rapid status+log poll right after /api/start, until running is confirmed.
+function _startupPoll(){
+  _startingUp = true;
+  let attempts = 0;
+  function tick(){
+    clearTimeout(_startupTimer);
+    _startupTimer = setTimeout(async ()=>{
+      await fetchLogs();          // pull log first so user sees output
+      await pollStatus();         // then update banner
+      attempts++;
+      if(_isRunning){
+        _startingUp = false;      // hand off to normal cadence
+        setMsg('✓ Controller actief — → Dashboard','ok');
+      } else if(attempts < 30){  // keep rapid polling up to ~60s
+        tick();
+      } else {
+        _startingUp = false;
+        setMsg('⚠ Startup duurde te lang — check de log','err');
+      }
+    }, 2000);
+  }
+  tick();
+}
 
 function _scheduleStatus() {
   clearTimeout(_statusTimer);
@@ -474,8 +503,9 @@ function _scheduleStatus() {
 
 function _scheduleLogs() {
   clearTimeout(_logTimer);
-  if (!_isRunning) return;          // stop polling logs when controller is off
-  _logTimer = setTimeout(async () => { await fetchLogs(); _scheduleLogs(); }, 5000);
+  if (!_isRunning && !_startingUp) return;  // stop when neither running nor starting
+  const ms = _startingUp ? 2000 : 5000;     // rapid during boot, slower after
+  _logTimer = setTimeout(async () => { await fetchLogs(); _scheduleLogs(); }, ms);
 }
 
 // Pause all polling when tab is hidden, resume when visible again
@@ -527,9 +557,10 @@ async function pollStatus(){
 }
 
 // ── LOG PANEL ─────────────────────────────────────────────────────────────────
-function showLog(){
+function showLog(force=false){
   $('log-panel').classList.add('visible');
-  // Start log polling only if not already scheduled
+  $('log-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(force){ clearTimeout(_logTimer); _logTimer=null; }  // force fresh poll
   if(!_logTimer) _scheduleLogs();
 }
 
