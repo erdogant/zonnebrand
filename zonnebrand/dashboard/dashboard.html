@@ -814,19 +814,26 @@ function buildMainChart(epexRows, solarRows, targetDate) {
     return priceColor(p, 0.8);
   });
 
-  // Solar output: match by time
-  const solarMap = {};
-  solarRows.forEach(r => { solarMap[r.time] = parseFloat(r.target_percent); });
-  const solarLine = labels.map(t => {
-    // Find closest solar reading at or before this time
-    let best = null;
-    const tMin = timeToMinutes(t);
-    for (const [st, pct] of Object.entries(solarMap)) {
-      const stMin = timeToMinutes(st);
-      if (stMin <= tMin) best = pct;
+  // Solar output: each status.csv row (arbitrary time e.g. 19:02) is bucketed
+  // into its 15-min EPEX slot by flooring to the nearest 15 min.
+  // Multiple rows in the same slot collapse to one point (last wins).
+  // The point is only kept when that slot label actually exists in the EPEX
+  // data, so it lands precisely on a bar. We use scatter {x, y} points so
+  // NO line is drawn between them — just isolated dots above each bar.
+  const epexLabelSet = new Set(labels);
+  const solarSlotMap = {}; // '19:00' -> 100
+  solarRows.forEach(r => {
+    const [h, m] = r.time.split(':').map(Number);
+    const slotMin = Math.floor(m / 15) * 15;
+    const slotLabel = String(h).padStart(2,'0') + ':' + String(slotMin).padStart(2,'0');
+    if (epexLabelSet.has(slotLabel)) {
+      solarSlotMap[slotLabel] = parseFloat(r.target_percent);
     }
-    return best;
   });
+  // Build {x, y} scatter points — one per unique slot, sorted chronologically
+  const solarPoints = Object.entries(solarSlotMap)
+    .sort((a, b) => timeToMinutes(a[0]) - timeToMinutes(b[0]))
+    .map(([slotLabel, pct]) => ({ x: slotLabel, y: pct }));
 
   // Zero line annotation
   const yMin = Math.min(...prices, 0);
@@ -849,19 +856,17 @@ function buildMainChart(epexRows, solarRows, targetDate) {
           order: 2,
         },
         {
-          type: 'line',
+          type: 'scatter',
           label: 'Solar output (%)',
-          data: solarLine,
-          borderColor: 'rgba(245,197,66,0.85)',
-          backgroundColor: 'rgba(245,197,66,0.06)',
-          borderWidth: 2,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          fill: true,
+          data: solarPoints,
+          backgroundColor: 'rgba(245,197,66,0.9)',
+          borderColor: 'rgba(245,197,66,1)',
+          borderWidth: 1,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          pointStyle: 'circle',
           yAxisID: 'y2',
-          tension: 0.3,
           order: 1,
-          spanGaps: true,
         }
       ]
     },
@@ -883,7 +888,7 @@ function buildMainChart(epexRows, solarRows, targetDate) {
             title: ctx => ctx[0].label,
             label: ctx => {
               if (ctx.datasetIndex === 0) return ` EPEX: €${parseFloat(ctx.raw).toFixed(4)}/kWh`;
-              if (ctx.datasetIndex === 1) return ` Solar: ${ctx.raw != null ? ctx.raw+'%' : '—'}`;
+              if (ctx.datasetIndex === 1) return ` Solar: ${ctx.raw != null ? ctx.raw.y+'%' : '—'}`;
               return '';
             }
           }
