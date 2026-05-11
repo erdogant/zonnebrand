@@ -614,7 +614,7 @@
   <!-- UPCOMING NEGATIVE CALLOUT -->
   <div class="callout hidden" id="neg-callout">
     <span class="callout-icon">⚡</span>
-    <span>Volgende negatieve prijsperiode begint om <strong id="callout-time">—</strong> — panelen worden mogelijk uitgeschakeld.</span>
+    <span>Volgende negatieve prijsperiode begint om <strong id="callout-time">—</strong> — panelen worden dan uitgeschakeld.</span>
   </div>
 
   <!-- MAIN CHART: EPEX + SOLAR OVERLAY -->
@@ -631,21 +631,13 @@
       <canvas id="mainChart"></canvas>
     </div>
     <div class="legend-row">
-      <div class="legend-item"><div class="legend-dot" style="background:#2ecc71"></div> Positieve prijs (€/kWh)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#F5B041"></div> Positieve prijs (€/kWh)</div>
       <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> Negatieve prijs (€/kWh)</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#f5c542; opacity:0.7"></div> Solar output %</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f5c542; opacity:0.7"></div> Solar Percentage %</div>
       <div class="legend-item"><div class="legend-dot" style="background:#4fa3e0"></div> Huidige slot</div>
     </div>
   </div>
 
-  <!-- STATS STRIP -->
-  <div class="stats-strip" id="stats-strip">
-    <div class="stat-tile"><div class="val" id="s-avg">—</div><div class="lbl">Gemiddeld</div></div>
-    <div class="stat-tile"><div class="val" id="s-min">—</div><div class="lbl">Minimum</div></div>
-    <div class="stat-tile"><div class="val" id="s-max">—</div><div class="lbl">Maximum</div></div>
-    <div class="stat-tile"><div class="val" id="s-neg">—</div><div class="lbl">Neg. slots</div></div>
-    <div class="stat-tile"><div class="val" id="s-slots">—</div><div class="lbl">Totaal slots</div></div>
-  </div>
 
   <!-- BOTTOM GRID: History chart + Heatmap -->
   <div class="bottom-grid">
@@ -814,26 +806,27 @@ function buildMainChart(epexRows, solarRows, targetDate) {
     return priceColor(p, 0.8);
   });
 
-  // Solar output: each status.csv row (arbitrary time e.g. 19:02) is bucketed
-  // into its 15-min EPEX slot by flooring to the nearest 15 min.
-  // Multiple rows in the same slot collapse to one point (last wins).
-  // The point is only kept when that slot label actually exists in the EPEX
-  // data, so it lands precisely on a bar. We use scatter {x, y} points so
-  // NO line is drawn between them — just isolated dots above each bar.
-  const epexLabelSet = new Set(labels);
-  const solarSlotMap = {}; // '19:00' -> 100
+  // Solar target_percent: bucket each status.csv row into its 15-min EPEX slot
+  // by flooring minutes to the nearest 15. Multiple rows in the same slot
+  // collapse to the last value (latest wins within the slot).
+  // We then build a full-length array aligned to `labels` so Chart.js can
+  // draw a stepped line across the entire day. Slots before the first solar
+  // row get null (no line); slots after carry the last known value forward.
+  const solarSlotMap = {}; // '19:00' -> percent (last write wins)
   solarRows.forEach(r => {
     const [h, m] = r.time.split(':').map(Number);
     const slotMin = Math.floor(m / 15) * 15;
     const slotLabel = String(h).padStart(2,'0') + ':' + String(slotMin).padStart(2,'0');
-    if (epexLabelSet.has(slotLabel)) {
-      solarSlotMap[slotLabel] = parseFloat(r.target_percent);
-    }
+    solarSlotMap[slotLabel] = parseFloat(r.target_percent);
   });
-  // Build {x, y} scatter points — one per unique slot, sorted chronologically
-  const solarPoints = Object.entries(solarSlotMap)
-    .sort((a, b) => timeToMinutes(a[0]) - timeToMinutes(b[0]))
-    .map(([slotLabel, pct]) => ({ x: slotLabel, y: pct }));
+
+  // Build a value per EPEX label: carry the last known value forward (step),
+  // leave null before the first observation so no line is drawn there.
+  let lastPct = null;
+  const solarData = labels.map(lbl => {
+    if (solarSlotMap[lbl] !== undefined) lastPct = solarSlotMap[lbl];
+    return lastPct; // null until first observation, then step-holds
+  });
 
   // Zero line annotation
   const yMin = Math.min(...prices, 0);
@@ -856,15 +849,22 @@ function buildMainChart(epexRows, solarRows, targetDate) {
           order: 2,
         },
         {
-          type: 'scatter',
-          label: 'Solar output (%)',
-          data: solarPoints,
-          backgroundColor: 'rgba(245,197,66,0.9)',
-          borderColor: 'rgba(245,197,66,1)',
-          borderWidth: 1,
-          pointRadius: 5,
+          type: 'line',
+          label: 'Solar target (%)',
+          data: solarData,
+          borderColor: 'rgba(245,197,66,0.35)',
+          backgroundColor: 'rgba(245,197,66,0.06)',
+          borderWidth: 2,
+          stepped: 'before',       // flat step between observations
+          fill: true,
+          pointRadius: solarData.map((v, i) =>
+            // show a dot only on slots where a new observation landed
+            solarSlotMap[labels[i]] !== undefined ? 5 : 0
+          ),
           pointHoverRadius: 7,
-          pointStyle: 'circle',
+          pointBackgroundColor: 'rgba(0,0,0,1)',
+          pointBorderColor: 'rgba(255,255,255,1)',
+          spanGaps: false,          // don't connect across nulls at the start
           yAxisID: 'y2',
           order: 1,
         }
@@ -888,7 +888,7 @@ function buildMainChart(epexRows, solarRows, targetDate) {
             title: ctx => ctx[0].label,
             label: ctx => {
               if (ctx.datasetIndex === 0) return ` EPEX: €${parseFloat(ctx.raw).toFixed(4)}/kWh`;
-              if (ctx.datasetIndex === 1) return ` Solar: ${ctx.raw != null ? ctx.raw.y+'%' : '—'}`;
+              if (ctx.datasetIndex === 1) return ` Solar: ${ctx.raw != null ? ctx.raw + '%' : '—'}`;
               return '';
             }
           }
@@ -945,21 +945,10 @@ async function loadChartForDate(dateStr) {
     const epex = await epexRes.json();
     const solar = await solarRes.json();
     buildMainChart(epex, solar, dateStr);
-    updateStatsStrip(epex);
   } catch(e) { console.error('loadChartForDate:', e); }
 }
 
-function updateStatsStrip(epexRows) {
-  const prices = epexRows.map(r => parseFloat(r.price)).filter(v => !isNaN(v));
-  if (!prices.length) return;
-  const avg = prices.reduce((a,b)=>a+b,0)/prices.length;
-  const neg = prices.filter(p=>p<0).length;
-  $('s-avg').textContent = `€${avg.toFixed(4)}`;
-  $('s-min').textContent = `€${Math.min(...prices).toFixed(4)}`;
-  $('s-max').textContent = `€${Math.max(...prices).toFixed(4)}`;
-  $('s-neg').textContent = neg;
-  $('s-slots').textContent = prices.length;
-}
+
 
 // ═══════════════════════════════════════════════════════════════════════════
 // STATUS PANEL
