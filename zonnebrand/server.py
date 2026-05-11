@@ -33,6 +33,21 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# SILENCE WERKZEUG ACCESS LOG FOR POLLING ENDPOINTS
+# /api/logs, /api/process-status, /api/status are hit every few seconds by
+# the browser. Logging every request floods the terminal and buries real logs.
+# ══════════════════════════════════════════════════════════════════════════════
+
+_SILENT_PATHS = {'/api/logs', '/api/process-status', '/api/status'}
+
+class _SilentFilter(logging.Filter):
+    def filter(self, record):
+        msg = record.getMessage()
+        return not any(p in msg for p in _SILENT_PATHS)
+
+logging.getLogger('werkzeug').addFilter(_SilentFilter())
+
+# ══════════════════════════════════════════════════════════════════════════════
 # IN-PROCESS LOG HANDLER
 # Captures all Python logging output into a ring buffer so the dashboard
 # can stream it without needing stdout of a subprocess.

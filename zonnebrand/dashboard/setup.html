@@ -455,10 +455,44 @@ async function stopCtrl(){
 }
 
 // ── PROCESS STATUS ────────────────────────────────────────────────────────────
+// ── PROCESS STATUS & LOG POLLING ─────────────────────────────────────────────
+// Rules:
+//   • pollStatus: every 10s when stopped, every 5s when running
+//   • fetchLogs:  only when running, every 5s; stops when controller stops
+//   • Neither polls at all when the browser tab is hidden (visibilitychange)
+
+let _isRunning = false;
+let _lastLen   = 0;
+let _statusTimer = null;
+let _logTimer    = null;
+
+function _scheduleStatus() {
+  clearTimeout(_statusTimer);
+  // Back off to 10s when stopped — no need to hammer the Pi
+  _statusTimer = setTimeout(async () => { await pollStatus(); }, _isRunning ? 5000 : 10000);
+}
+
+function _scheduleLogs() {
+  clearTimeout(_logTimer);
+  if (!_isRunning) return;          // stop polling logs when controller is off
+  _logTimer = setTimeout(async () => { await fetchLogs(); _scheduleLogs(); }, 5000);
+}
+
+// Pause all polling when tab is hidden, resume when visible again
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    clearTimeout(_statusTimer);
+    clearTimeout(_logTimer);
+  } else {
+    pollStatus();   // immediate refresh on tab focus
+  }
+});
+
 async function pollStatus(){
   try{
     const d=await fetch('/api/process-status').then(r=>r.json());
     const running=d.running;
+    _isRunning = running;
     const badge=$('proc-badge'), detail=$('proc-detail'), uptime=$('proc-uptime');
 
     if(running){
@@ -476,7 +510,7 @@ async function pollStatus(){
     } else {
       badge.textContent='● GESTOPT';
       badge.className='proc-badge stopped';
-      detail.textContent=d.exit_code!=null?`Gestopt (exit ${d.exit_code})`:'Controller draait niet';
+      detail.textContent='Controller draait niet';
       uptime.textContent='—';
       uptime.style.color='var(--dim)';
     }
@@ -485,34 +519,27 @@ async function pollStatus(){
     $('btn-stop').style.display=running?'inline-block':'none';
     $('btn-dash').style.display=running?'inline-block':'none';
     $('btn-start').disabled=false;
-
-    // log dot color
     $('log-dot').style.background=running?'var(--green)':'var(--dim)';
 
-    if(running) showLog();
+    if(running){ showLog(); }
   }catch(e){}
+  _scheduleStatus();
 }
-setInterval(pollStatus,5000);
 
 // ── LOG PANEL ─────────────────────────────────────────────────────────────────
-let _logActive=false, _lastLen=0;
-
 function showLog(){
   $('log-panel').classList.add('visible');
-  if(!_logActive){
-    _logActive=true;
-    fetchLogs();
-    setInterval(fetchLogs,4000);
-  }
+  // Start log polling only if not already scheduled
+  if(!_logTimer) _scheduleLogs();
 }
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function colorLine(l){
-  if(/\[server\]/i.test(l))         return `<span class="l-srv">${esc(l)}</span>`;
-  if(/error/i.test(l))              return `<span class="l-err">${esc(l)}</span>`;
-  if(/warn/i.test(l))               return `<span class="l-warn">${esc(l)}</span>`;
-  if(/debug/i.test(l))              return `<span class="l-dim">${esc(l)}</span>`;
+  if(/\[server\]/i.test(l))    return `<span class="l-srv">${esc(l)}</span>`;
+  if(/error/i.test(l))          return `<span class="l-err">${esc(l)}</span>`;
+  if(/warn/i.test(l))           return `<span class="l-warn">${esc(l)}</span>`;
+  if(/debug/i.test(l))          return `<span class="l-dim">${esc(l)}</span>`;
   return `<span class="l-info">${esc(l)}</span>`;
 }
 
