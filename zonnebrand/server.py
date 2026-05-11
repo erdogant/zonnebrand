@@ -20,13 +20,14 @@ import threading
 import logging
 from collections import deque
 from datetime import datetime, date
+from utils import get_date_time
 
 app = Flask(__name__)
 log = logging.getLogger(__name__)
 
 DATA_DIR    = './dashboard'
 EPEX_CSV    = os.path.join(DATA_DIR, 'epex.csv')
-SOLAR_CSV   = os.path.join(DATA_DIR, 'status.csv')
+STATUS_CSV   = os.path.join(DATA_DIR, 'status.csv')
 CONFIG_FILE = os.path.join(DATA_DIR, 'config.json')
 
 os.makedirs(DATA_DIR, exist_ok=True)
@@ -120,7 +121,8 @@ class ControllerManager:
                 return {'ok': False, 'error': str(exc)}
 
             self._client     = client
-            self._start_time = datetime.now()
+            # self._start_time = datetime.now()
+            self._start_time = get_date_time('object')
 
             self._thread = threading.Thread(
                 target=self._run_loop,
@@ -297,13 +299,20 @@ _ctrl = ControllerManager()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# CONFIG HELPERS  —  credentials are NEVER written to disk
+# CONFIG HELPERS
+# Credentials are only written to disk when the user opts in via the
+# 'Onthouden' checkbox in the UI (save_credentials / save_resend flags).
+# The flag values are stored too so checkbox state survives a reload.
 # ══════════════════════════════════════════════════════════════════════════════
 
 SAFE_KEYS = {
     'provider', 'country', 'mail', 'logdir',
     'min_window_minutes', 'check_interval_minutes',
     'headless', 'screenshot',
+    # credential fields — only present when user chose to save them
+    'username', 'password', 'resend_api_key',
+    # checkbox state flags
+    'save_credentials', 'save_resend',
 }
 
 def load_config() -> dict:
@@ -317,6 +326,12 @@ def load_config() -> dict:
 
 def save_config(data: dict):
     safe = {k: v for k, v in data.items() if k in SAFE_KEYS}
+    # Only persist credentials when the user explicitly opted in
+    if not data.get('save_credentials'):
+        safe.pop('username', None)
+        safe.pop('password', None)
+    if not data.get('save_resend'):
+        safe.pop('resend_api_key', None)
     with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
         json.dump(safe, f, indent=2)
 
@@ -425,13 +440,16 @@ def api_epex_dates():
 @app.route('/api/solar')
 def api_solar():
     target_date = request.args.get('date', today_str())
-    rows = read_csv(SOLAR_CSV)
+    rows = read_csv(STATUS_CSV)
     return jsonify([r for r in rows if r.get('date') == target_date])
 
 @app.route('/api/status')
 def api_status():
-    solar_rows   = read_csv(SOLAR_CSV)
-    latest_solar = solar_rows[-1] if solar_rows else {}
+    solar_rows   = read_csv(STATUS_CSV)
+    # Sort by (date, time) so the last entry is truly the most recent,
+    # regardless of the order rows were appended to the CSV.
+    solar_rows_sorted = sorted(solar_rows, key=lambda r: (r.get('date',''), r.get('time','')))
+    latest_solar = solar_rows_sorted[-1] if solar_rows_sorted else {}
 
     now          = datetime.now()
     current_hhmm = now.strftime('%H:%M')
@@ -521,8 +539,8 @@ def api_history():
 if __name__ == '__main__':
     print()
     print('  ☀  Zonnebrand server starting')
-    print(f'     Dashboard : http://0.0.0.0:8000/')
-    print(f'     Setup     : http://0.0.0.0:8000/setup')
+    print(f'     Dashboard : http://localhost:8000/')
+    print(f'     Setup     : http://localhost:8000/setup')
     print(f'     Data dir  : {os.path.abspath(DATA_DIR)}')
     print()
     # threaded=True is required — the controller loop blocks its thread while

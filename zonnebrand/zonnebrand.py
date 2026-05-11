@@ -17,10 +17,11 @@ import logging
 import tempfile
 import threading
 import requests
-from datetime import datetime, timezone, timedelta, date
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import plotly.graph_objects as go
 from playwright.async_api import async_playwright, TimeoutError as PWTimeout
+from utils import get_date_time
 
 try:
     from sendmail import send_html_email
@@ -601,23 +602,6 @@ class Zonnebrand():
     
 
 # %%
-def get_date_time(format_type = 'today', UTC=True):
-    now = datetime.now(timezone.utc) if UTC else datetime.now()
-
-    if format_type=='today':
-        return date.today().isoformat()
-    elif format_type=='time':
-        return now.strftime("%H:%M")
-    elif format_type=='object':
-        return now
-    elif format_type=='%H%M%S':
-        return now.strftime("%H%M%S")
-    elif format_type=='today_object':
-        # Always use local calendar date (same as date.today()) so the
-        # day-change check in the control loop fires at local midnight,
-        # not UTC midnight.
-        return date.today()
-
 
 def load_epex_data(datafile):
     if not os.path.exists(datafile):
