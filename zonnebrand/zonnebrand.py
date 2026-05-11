@@ -613,7 +613,10 @@ def get_date_time(format_type = 'today', UTC=True):
     elif format_type=='%H%M%S':
         return now.strftime("%H%M%S")
     elif format_type=='today_object':
-        return now.date()
+        # Always use local calendar date (same as date.today()) so the
+        # day-change check in the control loop fires at local midnight,
+        # not UTC midnight.
+        return date.today()
 
 
 def load_epex_data(datafile):
@@ -1119,12 +1122,19 @@ async def _set_sma_parameters_async(value, SUNNY_URL, USERNAME, PASSWORD, headle
                 await _screenshot(page, "4_after_login", tempdir)
 
             # =============================================================================
-            # Detect common failure modes
+            # Detect common failure modes — raise immediately so the caller stops
             # =============================================================================
-            if "login" in page.url.lower() or "error" in page.url.lower():
-                logger.error("Login may have failed – still on login/error page!")
-            if await page.locator("text=incorrect").count():
-                logger.error("Page contains 'incorrect' – wrong credentials?")
+            still_on_login = "login" in page.url.lower() or "error" in page.url.lower()
+            has_incorrect  = bool(await page.locator("text=incorrect").count())
+            has_invalid    = bool(await page.locator("text=invalid").count())
+            if still_on_login or has_incorrect or has_invalid:
+                if screenshot:
+                    await _screenshot(page, "LOGIN_FAILED", tempdir)
+                raise RuntimeError(
+                    f"Login failed – wrong username or password? "
+                    f"(URL={page.url!r}, "
+                    f"'incorrect'={has_incorrect}, 'invalid'={has_invalid})"
+                )
 
             # =============================================================================
             # ── Navigate to parameters page ──────────────────────────────────
