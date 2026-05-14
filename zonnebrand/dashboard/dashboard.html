@@ -201,7 +201,7 @@
   /* ── STATUS CARDS ROW ── */
   .status-row {
     display: grid;
-    grid-template-columns: 280px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 280px 1fr 1fr 1fr;
     gap: 12px;
     margin-bottom: 24px;
   }
@@ -641,6 +641,31 @@
   </div>
 
 
+  <!-- STATS STRIP: Chart-based day stats -->
+  <!-- 
+  <div class="stats-strip" style="margin-bottom:16px;">
+    <div class="stat-tile">
+      <div class="val" id="s-avg">—</div>
+      <div class="lbl">Gemiddeld</div>
+    </div>
+    <div class="stat-tile">
+      <div class="val" id="s-min">—</div>
+      <div class="lbl">Min prijs</div>
+    </div>
+    <div class="stat-tile">
+      <div class="val" id="s-max">—</div>
+      <div class="lbl">Max prijs</div>
+    </div>
+    <div class="stat-tile">
+      <div class="val" id="s-neg" style="color:var(--accent-red)">—</div>
+      <div class="lbl">Negatieve slots</div>
+    </div>
+    <div class="stat-tile">
+      <div class="val" id="s-slots">—</div>
+      <div class="lbl">Totaal slots</div>
+    </div>
+  </div>
+-->
   <!-- BOTTOM GRID: History chart + Heatmap -->
   <div class="bottom-grid">
 
@@ -947,10 +972,26 @@ async function loadChartForDate(dateStr) {
     const epex = await epexRes.json();
     const solar = await solarRes.json();
     buildMainChart(epex, solar, dateStr);
+    updateStatsStrip(epex);
   } catch(e) { console.error('loadChartForDate:', e); }
 }
 
-
+function updateStatsStrip(epexRows) {
+  const prices = epexRows.map(r => parseFloat(r.price)).filter(v => !isNaN(v));
+  if (!prices.length) return;
+  const avg = prices.reduce((a,b)=>a+b,0)/prices.length;
+  const neg = prices.filter(p=>p<0).length;
+  const minP = Math.min(...prices);
+  const maxP = Math.max(...prices);
+  $('s-avg').textContent = `€${avg.toFixed(4)}`;
+  $('s-avg').style.color = avg < 0 ? 'var(--accent-red)' : 'var(--text)';
+  $('s-min').textContent = `€${minP.toFixed(4)}`;
+  $('s-min').style.color = minP < 0 ? 'var(--accent-red)' : 'var(--accent-green)';
+  $('s-max').textContent = `€${maxP.toFixed(4)}`;
+  $('s-max').style.color = 'var(--accent-orange)';
+  $('s-neg').textContent = neg;
+  $('s-slots').textContent = prices.length;
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // STATUS PANEL
@@ -978,7 +1019,6 @@ async function fetchStatus() {
 
     // Stats cards
     const s = d.today_stats || {};
-    $('stat-avg').textContent = s.avg_price != null ? `€${s.avg_price.toFixed(4)}` : '—';
     $('stat-neg').textContent = s.negative_slots != null ? s.negative_slots : '—';
     $('stat-total').textContent = s.total_slots || '—';
     $('stat-minmax').textContent = s.min_price != null ? `${s.min_price.toFixed(3)} / ${s.max_price.toFixed(3)}` : '—';
