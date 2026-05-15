@@ -1,15 +1,27 @@
 """
 Zonnebrand — Flask server + process manager
 ============================================
-Designed to run headlessly on a Raspberry Pi (no display).
+Name        : server.py
+Author      : E.Taskesen
+github      : https://github.com/erdogant/zonnebrand
+Licence     : GNU GENERAL PUBLIC LICENSE VERSION 3
+=====================================================
+
+Designed to run headlessly on small device like a Raspberry Pi (no display).
 Imports Zonnebrand directly and runs it in a daemon thread —
 no subprocess, no PATH guessing, no display required.
 
-Start:
+Terminal:
+    pip install zonnebrand
+    zonnebrand
+
+Start via Python:
     python server.py
 
 Then open http://<pi-ip>:8000/setup  from any browser on your network.
+
 """
+
 
 from flask import Flask, send_from_directory, jsonify, request
 import csv
@@ -20,10 +32,38 @@ import threading
 import logging
 from collections import deque
 from datetime import datetime, date
-from utils import get_date_time
 
 app = Flask(__name__)
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
+
+try:
+    from .zonnebrand import get_date_time, append_epex_prices, append_log_data
+except ImportError as exc:
+    try:
+        from zonnebrand import get_date_time, append_epex_prices, append_log_data
+    except ImportError as exc:
+        raise RuntimeError(f'[server] Import error in run loop: {exc}')
+finally:
+    logger.info('Modules loaded.')
+
+try:
+    from .zonnebrand import Zonnebrand
+except ImportError as exc:
+    try:
+        from zonnebrand import Zonnebrand
+    except ImportError as exc:
+        raise RuntimeError(f'Cannot import Zonnebrand: {exc}. Make sure zonnebrand.py is in the same directory as server.py.')
+finally:
+    logger.info('Modules loaded.')
+    
+    
+try:
+    from sendmail import send_html_email
+    SENDMAIL_FLAG = True
+except Exception:
+    SENDMAIL_FLAG = False
+
+
 
 DATA_DIR    = './dashboard'
 EPEX_CSV    = os.path.join(DATA_DIR, 'epex.csv')
@@ -34,7 +74,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SILENCE WERKZEUG ACCESS LOG FOR POLLING ENDPOINTS
+# SILENCE LOGGER ACCESS LOG FOR POLLING ENDPOINTS
 # /api/logs, /api/process-status, /api/status are hit every few seconds by
 # the browser. Logging every request floods the terminal and buries real logs.
 # ══════════════════════════════════════════════════════════════════════════════
@@ -46,7 +86,7 @@ class _SilentFilter(logging.Filter):
         msg = record.getMessage()
         return not any(p in msg for p in _SILENT_PATHS)
 
-logging.getLogger('werkzeug').addFilter(_SilentFilter())
+logging.getLogger('zonnebrand.server').addFilter(_SilentFilter())
 
 # ══════════════════════════════════════════════════════════════════════════════
 # IN-PROCESS LOG HANDLER
@@ -131,7 +171,7 @@ class ControllerManager:
                 name='zonnebrand-controller',
             )
             self._thread.start()
-            log.info('[server] Controller thread started.')
+            logger.info('[server] Controller thread started.')
             return {'ok': True}
 
     def stop(self) -> dict:
@@ -142,7 +182,7 @@ class ControllerManager:
             # Wake up the sleeping loop immediately
             if self._client:
                 self._client._stop_event = self._stop_event
-            log.info('[server] Stop signal sent to controller.')
+            logger.info('[server] Stop signal sent to controller.')
             return {'ok': True}
 
     def status(self) -> dict:
@@ -182,13 +222,13 @@ class ControllerManager:
         if cwd not in sys.path:
             sys.path.insert(0, cwd)
 
-        try:
-            from zonnebrand import Zonnebrand
-        except ImportError as exc:
-            raise RuntimeError(
-                f'Cannot import Zonnebrand: {exc}. '
-                'Make sure zonnebrand.py is in the same directory as server.py.'
-            )
+        # try:
+        #     from zonnebrand import Zonnebrand
+        # except ImportError as exc:
+        #     raise RuntimeError(
+        #         f'Cannot import Zonnebrand: {exc}. '
+        #         'Make sure zonnebrand.py is in the same directory as server.py.'
+        #     )
 
         username = config.get('username', '').strip()
         password = config.get('password', '').strip()
@@ -224,24 +264,24 @@ class ControllerManager:
         import time
         import requests
 
-        log.info('[server] Entering control loop.')
+        logger.info('[server] Entering control loop.')
         last_state  = None
         cached_data = None
         cache_date  = None
 
-        try:
-            from zonnebrand import (
-                get_date_time, append_epex_prices, append_log_data,
-            )
-            try:
-                from sendmail import send_html_email
-                SENDMAIL_FLAG = True
-            except Exception:
-                SENDMAIL_FLAG = False
-        except ImportError as exc:
-            self._error = str(exc)
-            log.error('[server] Import error in run loop: %s', exc)
-            return
+        # try:
+        #     from zonnebrand import (
+        #         get_date_time, append_epex_prices, append_log_data
+        #     )
+        #     try:
+        #         from sendmail import send_html_email
+        #         SENDMAIL_FLAG = True
+        #     except Exception:
+        #         SENDMAIL_FLAG = False
+        # except ImportError as exc:
+        #     self._error = str(exc)
+        #     logger.error('[server] Import error in run loop: %s', exc)
+        #     return
 
         while not self._stop_event.is_set():
             try:
@@ -252,12 +292,12 @@ class ControllerManager:
                     cached_data = client.fetch_epex()
                     cache_date  = today
                     append_epex_prices(client.logfiles['epex'], cached_data)
-                    log.debug('[server] Cached %d price slots.', len(cached_data))
+                    logger.debug('[server] Cached %d price slots.', len(cached_data))
 
                 target_perc, reason = client.decide_target(cached_data)
 
                 if target_perc != last_state:
-                    log.info('[server] State change → %d%% | %s', target_perc, reason)
+                    logger.info('[server] State change → %d%% | %s', target_perc, reason)
                     client.set_sma_parameters(target_perc)
                     last_state = target_perc
                     if SENDMAIL_FLAG and client.to_mail:
@@ -270,29 +310,29 @@ class ControllerManager:
                                 html    = html,
                             )
                         except Exception as mail_exc:
-                            log.warning('[server] Mail failed: %s', mail_exc)
+                            logger.warning('[server] Mail failed: %s', mail_exc)
                 else:
-                    log.info('[server] No change (%d%%) | %s', target_perc, reason)
+                    logger.info('[server] No change (%d%%) | %s', target_perc, reason)
 
                 append_log_data(client.logfiles['status'], target_perc, reason)
-                log.info('[server] ────────────────────────────────')
+                logger.info('[server] ────────────────────────────────')
 
             except requests.RequestException as exc:
-                log.error('[server] Price API error: %s', exc)
+                logger.error('[server] Price API error: %s', exc)
             except Exception as exc:
-                log.error('[server] Unexpected error: %s', exc, exc_info=True)
+                logger.error('[server] Unexpected error: %s', exc, exc_info=True)
                 self._error = str(exc)
 
             # Sleep in short increments so stop_event is checked regularly
             interval = client.CHECK_INTERVAL_SECONDS
-            log.info('[server] Sleeping %d min until next check.', interval // 60)
+            logger.info('[server] Sleeping %d min until next check.', interval // 60)
             for _ in range(interval):
                 if self._stop_event.is_set():
                     break
                 import time as _t
                 _t.sleep(1)
 
-        log.info('[server] Controller loop exited cleanly.')
+        logger.info('[server] Controller loop exited cleanly.')
 
 
 _ctrl = ControllerManager()
@@ -535,8 +575,7 @@ def api_history():
 # ══════════════════════════════════════════════════════════════════════════════
 # ENTRY POINT
 # ══════════════════════════════════════════════════════════════════════════════
-
-if __name__ == '__main__':
+def main():
     print()
     print('  ☀  Zonnebrand server starting')
     print(f'     Dashboard : http://localhost:8000/')
@@ -546,3 +585,6 @@ if __name__ == '__main__':
     # threaded=True is required — the controller loop blocks its thread while
     # sleeping, and Flask needs other threads free to serve requests.
     app.run(host='0.0.0.0', port=8000, debug=False, threaded=True)
+
+if __name__ == '__main__':
+    main()

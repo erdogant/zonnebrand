@@ -28,7 +28,7 @@ Usage
 >>> python zonnebrand.py                                                    # normal price-based control loop
 >>> python zonnebrand.py --headless False                                   # show the browser when setting paramaters active
 >>> python zonnebrand.py --provider zonneplan                               # normal price-based control loop
->>> python zonnebrand.py --provider zonneplan --mail your_mail@gmail.com    # normal price-based control loop
+>>> python zonnebrand.py --provider zonneplan --mail your@mail.com          # normal price-based control loop
 >>> python zonnebrand.py --set 0                                            # immediately force export limit to 0%
 >>> python zonnebrand.py --set 100                                          # immediately force export limit to 100%
 

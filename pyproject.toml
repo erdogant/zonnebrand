@@ -31,6 +31,13 @@ dependencies = [
 Homepage = "https://erdogant.github.io/zonnebrand"
 Download = "https://github.com/erdogant/zonnebrand/archive/{version}.tar.gz"
 
+# ── CLI entry-points ───────────────────────────────────────────────────────
+# After `pip install biscuitcutter` the user can type any of these commands
+# in a terminal to launch the interactive scaffolder.
+[project.scripts]
+zonnebrand  = "zonnebrand.server:main"
+sunscreen  = "zonnebrand.server:main"
+
 # Add the entire directory with subdirs into the package
 [tool.setuptools.packages.find]
 include = ["zonnebrand*"]
