@@ -12,11 +12,22 @@ status — all served locally from the same machine that runs ``zonnebrand``.
 Launch
 ------
 
-Start the dashboard server in a separate terminal (or as a background process):
+Start the dashboard server in a separate terminal (or as a background process).
+First pip install ``zonnebrand`` or ``sunscreen``
+
+.. code-block:: console
+
+    sunscreen
+    
+    zonnebrand
+
+
+Directly start using python command:
 
 .. code-block:: console
 
     python server.py
+
 
 Then open your browser and go to:
 

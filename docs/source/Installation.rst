@@ -69,7 +69,7 @@ Create a Conda environment
 
 .. code-block:: console
 
-    conda create -n env_zonnebrand python=3.11
+    conda create -n env_zonnebrand python=3.12
     conda activate env_zonnebrand
     pip install zonnebrand
     playwright install chromium

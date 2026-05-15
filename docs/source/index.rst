@@ -101,6 +101,14 @@ Quick install
 
 .. code-block:: console
 
+    zonnebrand <enter>
+    sunscreen <enter>
+
+
+Run directly using python
+
+.. code-block:: console
+
     python zonnebrand.py --provider zonneplan --mail your_mail@gmail.com
 
 -----------------------------------

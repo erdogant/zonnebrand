@@ -22,7 +22,29 @@ It detects negative-price windows and adjusts the two export-limit parameters in
 ---
 
 
-# Usage
+# Installation
+
+```bash
+pip install sunscreen
+```
+
+# Start the sunscreen-server
+
+```bash
+sunscreen
+```
+
+
+# Start using Python
+
+First git clone this repo, then run with:
+
+```bash
+python server.py
+
+```
+
+Start the daemon directly with:
 
 ```bash
 python zonnebrand.py --help                # show all options
